@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-card [routerLink]="['/admin/welcome']" [hidden]="!loadingState">
+    <ion-img id="mainlogo" src="assets/img/logo-pratic-boutic.png" />
+  </ion-card>
+  <ion-toolbar>
+    <ion-title>Fin de la commande</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div id="main">
+    <ng-container *ngIf="!loadingState">
+      <ion-img id="logo" *ngIf="logo !== undefined" [src]="srvroot + 'upload/' + logo" [hidden]="!logo" />
+      <p id="marqueid" class="marque" [hidden]="logo">{{ nom }}</p>
+    </ng-container>
+    <div class="spincenter" *ngIf="loadingState">
+      <ion-spinner id="spinimgid" class="bigspinner"></ion-spinner>
+    </div>
+    <div *ngIf="!loadingState" class="fsub">
+      <p class="panneau acenter" id="envoieok">Votre commande a été envoyée.<br>Nous vous remercions pour votre fidelité.<br></p>
+    </div>
+  </div>
+</ion-content>
+
+<ion-footer>
+  <div id="footer" [hidden]="loadingState">
+    <ion-button color="dark" class="soloindic ripplenice" id="recommander" (click)="gotoDebut()">Passer une autre commande</ion-button>
+  </div>
+  <div id="barre" *ngIf="getShowBarre()">Ce site utilise des cookies<div id="fermer" (mousedown)="setShowBarre(true)"></div></div>
+</ion-footer>
+

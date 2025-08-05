@@ -1,0 +1,125 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Détails Commandes Clients</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content id="maindetorder" scroll-x="true" scroll-y="true">
+  <div id="det9">
+    <div *ngFor="let champ of champs; index as i">
+      <ion-item *ngIf="champ.typ !== 'pk' && valeurs !== null && valeurs.length >= i">
+        <ion-label *ngIf="nomchamps[i] !== 'Statut de la commande'" id="dtable{{ numtable }}lbl{{ i }}">{{ nomchamps[i] }}&nbsp;:&nbsp;{{ valeurs[i] }}</ion-label>
+        <div *ngIf="nomchamps[i] === 'Statut de la commande' && liste.length >= i && liste[i] && liste[i].length > 0 && valeurs.length >= i && valeurs[i]">
+          <ion-label id="dtable{{ numtable }}lbl{{ i }}">{{ nomchamps[i] }}&nbsp;:&nbsp;</ion-label>
+          <ion-select id="dtable{{ numtable }}lien{{ i }}" (ionChange)="onStatutChange($event, i)" [value]="valeurs[i].id"
+            [style.background-color]="valeurs[i].couleur" [style.color]="(luminosite(valeurs[i].couleur) > 127) ? 'black' : 'white'">
+            <ion-select-option id="dtable{{ numtable }}lien{{ i }}opt{{j}}" *ngFor="let list of liste[i]; index as j" 
+              [style.background-color]="list.couleur" [style.color]="(luminosite(list.couleur) > 127) ? 'black' : 'white'" 
+              [value]="list.id" [ngClass]="'optbackcolor' + j">{{ list.valeur }}</ion-select-option>
+          </ion-select>
+        </div>
+      </ion-item>
+    </div>
+    <div id="table10">
+      <div class="table-container" *ngIf="total > 0">
+        <ion-grid class="table-hover">
+          <thead>
+            <ion-row>
+              <ng-container *ngFor="let tablechamp of latable.champs; index as i">
+                <ng-container *ngIf="tablechamp.typ !== 'pk' && tablechamp.vis !== 'n' && tablechamp.nom !== selcol">
+                  <ion-col *ngIf="tablechamp.typ !== 'fk'" class="tablecol">{{tablechamp.desc}}</ion-col>
+                  <ng-container *ngIf="tablechamp.typ === 'fk'">
+                    <ng-container *ngFor="let lien of model.getLiens()">
+                      <ng-container *ngIf="((lien.srctbl === latable.nom) && (lien.srcfld === tablechamp.nom))">
+                        <ion-col class="tablecol">{{lien.desc}}</ion-col>
+                      </ng-container>
+                    </ng-container>
+                  </ng-container>
+                </ng-container>
+              </ng-container>
+            </ion-row>
+          </thead>
+          <tbody>
+            <ng-container *ngFor="let donnee of donnees; index as j">
+              <ion-row  class="clickable-row relief">
+                <ng-container *ngFor="let donne of donnee; index as i">
+                  <ng-container *ngIf="latable.champs[i].typ !== 'pk' && latable.champs[i].vis !== 'n' && latable.champs[i].nom !== selcol && latable.champs[i].typ !== 'fk'">
+                    <ion-col class="tablecol">
+                        <div class="expanded" *ngIf="latable.champs[i].typ === 'prix'" (click)="onClickCellVal($event, j)">{{ getPrice(donnees[j][i]) }}</div>
+                        <div class="expanded" *ngIf="latable.champs[i].typ === 'date'" (click)="onClickCellVal($event, j)">{{ getFrenchDate(donnees[j][i]) }}</div>
+                        <div class="expanded" *ngIf="latable.champs[i].typ === 'text' || latable.champs[i].typ === 'ref'" (click)="onClickCellVal($event, j)">{{ donnees[j][i] }}</div>
+                        <ion-checkbox *ngIf="latable.champs[i].typ === 'bool'" disabled="true" [checked]="(donnees[j][i] > 0) ? 'true' : 'false'"></ion-checkbox>
+                    </ion-col>
+                  </ng-container>
+                  <ng-container *ngIf="latable.champs[i].typ === 'fk' && latable.champs[i].nom !== selcol">
+                    <ng-container *ngFor="let lien of model.getLiens()">
+                      <ng-container *ngIf="((lien.srctbl === latable.nom) && (lien.srcfld === latable.champs[i].nom))">
+                        <ion-col class="tablecol" (click)="onClickCellVal($event, j)"><div class="expanded">{{ donnees[j][i] }}</div></ion-col>
+                      </ng-container>
+                    </ng-container>
+                  </ng-container>
+                </ng-container>
+              </ion-row>
+            </ng-container>
+          </tbody>
+        </ion-grid>
+      </div>
+      <div *ngIf="total <= 0">
+        <p><em>Il n'y a pas de {{ latable.desc }} à afficher</em></p>
+      </div>
+      <ng-container *ngIf="pagination">
+      <ion-item class="divrpp">
+        <ion-label>Nombre de résultat par page</ion-label>
+        <ion-select (ionChange)="onChangeNbRes($event)" id="rppid{{this.model.getnumtable(table)}}" [value]="limite">
+          <ion-select-option *ngFor="let rp of rpp" [value]="rp">{{ rp }}</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <nav aria-label="page-navigation">
+          <ul class="pagination flexwrap">
+            <li *ngIf="activepage === 1" class="page-item disabled" disabled="">
+              <a class="page-link" (click)="onPrevLinkClick($event)" aria-label="Previous">
+                <span aria-hidden="true">&laquo;<span class="sr-only">Précédent</span></span>
+              </a>
+            </li>
+            <li *ngIf="activepage > 1" class="page-item">
+              <a class="page-link" (click)="onPrevLinkClick($event)" aria-label="Previous">
+                <span aria-hidden="true">&laquo;<span class="sr-only">Précédent</span></span>
+              </a>
+            </li>
+            <div *ngFor="let in of [].constructor(getTotalPage()); let k = index">
+              <li class="page-item active" *ngIf="(activepage === k + 1)">
+                <a class="page-link" (click)="onPageLinkClick($event, k + 1)">{{ k + 1 }}</a>
+              </li>
+              <li class="page-item" *ngIf="(activepage !== k + 1)" disabled>
+                <a class="page-link" (click)="onPageLinkClick($event, k + 1)">{{ k + 1}}</a>
+              </li>
+            </div>
+            <li *ngIf="activepage >= getTotalPage()" class="page-item disabled" disabled="">
+              <a class="page-link" (click)="onNextLinkClick($event)" aria-label="Next">
+                <span aria-hidden="true">&raquo;<span class="sr-only">Suivant</span></span>
+              </a>
+            </li>
+            <li *ngIf="activepage < getTotalPage()" class="page-item">
+              <a class="page-link" (click)="onNextLinkClick($event)" aria-label="Next">
+                <span aria-hidden="true">&raquo;<span class="sr-only">Suivant</span></span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </ion-item>
+    </ng-container>
+    </div>  
+  </div>
+  <br/>
+  <br/>
+  <br/>
+  <ion-fab vertical="bottom" horizontal="start" slot="fixed">
+    <ion-fab-button class="otherbutton" id="exitid" (click)="gotoUpperPage()">
+      <ion-icon name="return-down-back-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

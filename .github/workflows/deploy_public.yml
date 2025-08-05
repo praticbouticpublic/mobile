@@ -1,0 +1,38 @@
+
+name: Deploy Ionic mobile App to Public Repo
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:  
+  publish-clean-version:
+    runs-on: ubuntu-latest
+    env:
+      PUBLIC_REPO_URL: https://x-access-token:${{ secrets.GH_PUBLIC_TOKEN }}@github.com/praticbouticpublic/mobile.git
+
+    steps:
+      - name: 🧩 Checkout code
+        uses: actions/checkout@v4
+
+      - name: Create cleaned folder
+        run: |
+          mkdir cleaned
+          rsync -av --progress ./ cleaned \
+            --exclude='.git' \
+            --exclude='dev.praticboutic.fr.keystore' \
+            --exclude='android/app/google-services.json' \
+            --exclude='src/environments/*' 
+            
+      - name: 🔧 Initialize Git and push
+        working-directory: cleaned
+        run: |
+          git init
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git add .
+          git commit -m "Clean public version"
+          git branch -M main
+          git remote add origin $PUBLIC_REPO_URL
+          git push -f origin main

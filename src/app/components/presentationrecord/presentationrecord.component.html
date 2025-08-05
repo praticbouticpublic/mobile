@@ -1,0 +1,98 @@
+<div>
+  <div *ngIf="!loaded" class="centerflex">
+    <ion-spinner class="bigspinner" name="crescent"></ion-spinner>
+  </div>
+  <div id="main">
+    <div id="act">
+      <form *ngIf="formloaded" [formGroup]="form" (submit)="onSubmitAction($event, action)" style="display:block">
+        <div *ngFor="let champ of champs; index as i">
+          <ion-item *ngIf="(champ.typ !== 'pk') && (champ.nom !== selcol) && (champ.typ !== 'image') && (champ.nom !== 'statid') && (action !== 'view')">
+            <ion-input [label]="champ.desc + '&nbsp;:&nbsp;'" label-placement="fixed" name="table{{numtable}}_{{champ.nom}}" id="table{{numtable}}_inp{{i}}"  
+              *ngIf="(champ.typ === 'text') && (action !== 'view')" (ionChange)="onInputChange($event, champ, i)" [formControlName]="i"></ion-input>
+            <ion-input [label]="champ.desc + '&nbsp;:&nbsp;'" label-placement="fixed" name="table{{numtable}}_{{champ.nom}}" id="table{{numtable}}_inp{{i}}"  
+              *ngIf="(champ.typ === 'ref') && (action !== 'view')" required (ionChange)="onInputChange($event, champ, i)" [formControlName]="i"></ion-input>
+            <ion-checkbox name="table{{numtable}}_{{champ.nom}}" id="table{{numtable}}_inp{{i}}"  
+              *ngIf="(champ.typ === 'bool') && (action !== 'view') && (champ.typ !== 'fk')" required class="mbchk" (ionChange)="onInputChange($event, champ, i)" [formControlName]="i" labelPlacement="start">{{ champ.desc }}&nbsp;:&nbsp;</ion-checkbox>
+            <ion-input [label]="champ.desc + '&nbsp;:&nbsp;'" label-placement="fixed" name="table{{numtable}}_{{champ.nom}}" id="table{{numtable}}_inp{{i}}"  
+              *ngIf="(champ.typ === 'prix') && (action !== 'view')" type="number" required step="0.01" 
+              min="0" title="Doit être un nombre positif avec 2 chiffres après la virgule"
+              (ionChange)="onInputChange($event, champ, i)" [formControlName]="i"></ion-input>
+            <ion-input [label]="champ.desc + '&nbsp;:&nbsp;'" label-placement="fixed" name="table{{numtable}}_{{champ.nom}}" id="table{{numtable}}_inp{{i}}"  
+              *ngIf="(champ.typ === 'percent') && (action !== 'view')" type="number" required  
+              min="0" title="Doit être un nombre positif" (ionChange)="onInputChange($event, champ, i)" [formControlName]="i"></ion-input><ion-label *ngIf="(champ.typ === 'percent') && (action !== 'view')">%</ion-label>
+            <ion-input [label]="champ.desc + '&nbsp;:&nbsp;'" label-placement="fixed" id="table{{numtable}}_inp{{i}}" name="table{{numtable}}_{{champ.nom}}" *ngIf="(champ.typ === 'pass') && (action !== 'view')" type="password" pattern="(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%&*?]).{8,}" 
+              title="Le mot de passe doit contenir au moins un chiffre, une majuscule, une minuscule, un signe parmi !@#$%&*? et être de au moins 8 caractères"
+              required autocomplete="new-password" (ionChange)="onInputChange($event, champ, i)" [formControlName]="i"></ion-input>
+            <ion-input [label]="champ.desc + '&nbsp;:&nbsp;'" label-placement="fixed" id="table{{numtable}}_inp{{i}}" name="table{{numtable}}_{{champ.nom}}" *ngIf="(champ.typ === 'email') && (action !== 'view')" type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" 
+              title="Le courriel doit valide" required (ionChange)="onInputChange($event, champ, i)" [formControlName]="i"></ion-input>
+            <ion-input [label]="champ.desc + '&nbsp;:&nbsp;'" label-placement="fixed" id="table{{numtable}}_inp{{i}}" name="table{{numtable}}_{{champ.nom}}" *ngIf="(champ.typ === 'codepostal') && (action !== 'view')" type="text" pattern="[0-9]{5}" minlength="5" maxlength="5" 
+              title="Le code postal doit être valide" required (ionChange)="onInputChange($event, champ, i)" [formControlName]="i"></ion-input>
+            <ion-input [label]="champ.desc + '&nbsp;:&nbsp;'" label-placement="fixed" id="table{{numtable}}_inp{{i}}" name="table{{numtable}}_{{champ.nom}}" *ngIf="(champ.typ === 'codepromo') && (action !== 'view')" type="text" pattern="[A-Z]{4}" minlength="4" maxlength="4" 
+              title="Le code promotionnel doit être valide" required (ionChange)="onInputChange($event, champ, i)" [formControlName]="i"></ion-input>
+            <ion-input [label]="champ.desc + '&nbsp;:&nbsp;'" label-placement="fixed" id="table{{numtable}}_inp{{i}}" name="table{{numtable}}_{{champ.nom}}" *ngIf="(champ.typ === 'couleur') && (action !== 'view')" type="text" pattern="^#([A-Fa-f0-9]{6})$" minlength="7" maxlength="7" 
+              title="La couleur héxadécimal doit être valide" (ionChange)="onInputChange($event, champ, i)" [formControlName]="i" required></ion-input>
+            <div *ngIf="(nomliens.length === champs.length) && (champ.nom !== 'statid') && (liste.length >= i) && (liste[i]) && liste[i].length">
+              <ion-select [interfaceOptions]="customAlertOptions" [label]="nomliens[i] + '&nbsp;:&nbsp;'" label-placement="fixed" id="table{{numtable}}_lien{{i}}" name="table{{numtable}}_{{champ.nom}}" (ionChange)="onLienChange($event, champ, i)" *ngIf="(champ.typ === 'fk') && (action !== 'view')" [formControlName]="i">
+                <ion-select-option *ngFor="let list of liste[i]; index as j" id="table{{numtable}}_lien{{i}}_opt{{j}}" value="{{ list.id }}">{{ list.valeur }}</ion-select-option>
+              </ion-select>
+            </div>
+          </ion-item>
+          <ion-item *ngIf="(champ.typ !== 'pk') && (champ.nom !== selcol) && (champ.typ !== 'image') && (champ.nom !== 'statid') && (action === 'view')">
+            <ion-label>{{ champ.desc }}&nbsp;:&nbsp;</ion-label>
+            <ion-label *ngIf="(champ.typ !== 'fk')" id="table{{ numtable }}lbl{{ i }}">{{ valeurs[i] }}</ion-label>
+            <ion-label *ngIf="(champ.typ === 'fk') && (valeurs !== null && valeurs.length >= i)" id="table{{ numtable }}lbl{{ i }}">{{ valeurs[i].valeur }}</ion-label>
+          </ion-item>
+          <ion-item *ngIf="(champ.nom === 'statid') && (liste.length >= i) && (liste[i]) && (liste[i].length > 0) && (valeurs[i]) &&  (valeurs.length >= i) && (action === 'view') && (nomliens.length === champs.length)">
+            <ion-select [interfaceOptions]="statusAlertOptions" [label]="nomliens[i] + '&nbsp;:&nbsp;'" label-placement="fixed" id="dtable{{ numtable }}lien{{ i }}" (ionChange)="onStatutChange($event, i)" [value]="valeurs[i].id"
+              [style.background-color]="valeurs[i].couleur" [style.color]="(luminosite(valeurs[i].couleur === null ? '#FFFFFF' : valeurs[i].couleur) > 127) ? 'black' : 'white'">
+              <ion-select-option id="dtable{{ numtable }}lien{{ i }}opt{{j}}" *ngFor="let list of liste[i]; index as j"
+                [style.background-color]="list.couleur" [style.color]="(luminosite(list.couleur === null ? '#FFFFFF' : list.couleur) > 127) ? 'black' : 'white'"
+                [value]="list.id" [ngClass]="'optbackcolor' + j">{{ list.valeur }}</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <span class="error ion-padding" *ngIf="isSubmitted && champ.typ === 'ref' && errorControlfield(i.toString()).errors?.required">
+            Ce champ est requis
+          </span>
+          <span class="error ion-padding" *ngIf="isSubmitted && champ.typ === 'pass' && (errorControlfield(i.toString()).errors?.required ||errorControlfield(i.toString()).errors?.pattern)">
+            Le mot de passe doit contenir au moins un chiffre, une majuscule, une minuscule, un signe parmi !&#64;#$%&*? et être de au moins 8 caractères
+          </span>
+          <span class="error ion-padding" *ngIf="isSubmitted && champ.typ === 'email' && (errorControlfield(i.toString()).errors?.required || errorControlfield(i.toString()).errors?.pattern)">
+            Un email valide est requis. Il doit être de la forme user&#64;domain.ext
+          </span>
+          <span class="error ion-padding" *ngIf="isSubmitted && champ.typ === 'codepostal' && (errorControlfield(i.toString()).errors?.required || errorControlfield(i.toString()).errors?.pattern)">
+            Un code postal français est requis. Il doit être composé de 5 chiffres
+          </span>
+          <span class="error ion-padding" *ngIf="isSubmitted && champ.typ === 'couleur' && (errorControlfield(i.toString()).errors?.required || errorControlfield(i.toString()).errors?.pattern)">
+            Une couleur héxadécimal (RVB) est requise. Elle doit être de composé du signe # et de 6 chiffres (de 0 à 9) ou de lettres (majuscule ou minuscule de A à F) de la numérotation hexadécimal
+          </span>
+        </div>
+        <ion-item *ngIf="(table === 'article')" class="">
+          <div>
+            <ion-button expand="block" (click)="pickImages()" color="secondary" shape="round" fill="solid">Chargement des images</ion-button>
+            <div style="position:relative;display: flex;">
+              <ngb-carousel id="carouselimgid" class="frameimg imgart" [interval]="0" [showNavigationIndicators]="false">
+                <ng-template *ngFor="let img of listimgvis; index as i" ngbSlide>
+                    <div class="picsum-img-wrapper" [class]="(i === 0) ? 'active' : ''">
+                      <ion-img src="{{ srvroot }}upload/{{ img.filename }}" class="imgart" alt="" ></ion-img>
+                    </div>
+                    <div class="imgclose">
+                      <ion-img  src="assets/img/fermer.png" alt="" 
+                        (click)="onRemoveImgFromLst(i)" [hidden]="listimg.length <= 0"></ion-img>
+                    </div>
+                    <ion-spinner id="spinimgid" *ngIf="!logoloaded" name="crescent"></ion-spinner>
+                    <div id="favoriid">
+                      <ion-img  [src]="(img.favori === false) ? 'assets/svg/favori_unselected.svg' : 'assets/svg/favori_selected.svg'" 
+                        alt="" [class]="( img.favori === false ) ? 'imgfavorioff' : 'imgfavorion'"
+                        (click)="onChangeFavImg(i)" [hidden]="listimg.length <= 0"></ion-img>
+                    </div>
+                </ng-template>
+              </ngb-carousel>
+            </div>
+          </div>
+        </ion-item>
+      </form>
+    </div>
+    <app-presentationtable *ngIf="table === 'commande'" table="lignecmd" selcol="cmdid" [selid]="id" writable="false"></app-presentationtable>
+  </div>
+</div>
+

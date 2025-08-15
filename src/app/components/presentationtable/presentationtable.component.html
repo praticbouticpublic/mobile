@@ -1,0 +1,62 @@
+<div *ngIf="!loaded" class="centerflex">
+  <ion-spinner class="actioncolor" name="crescent"></ion-spinner>
+</div>
+<div *ngIf="loaded === true" id="table{{ numtable }}">
+  <div class="table-container" *ngIf="total > 0">
+    <ion-grid class="table-hover">
+      <thead>
+        <ion-row class="longtab headertitle">
+          <ng-container *ngFor="let tablechamp of latable.champs; index as i">
+            <ng-container *ngIf="tablechamp.typ !== 'pk' && tablechamp.vis !== 'n' && tablechamp.nom !== selcol">
+              <ion-col *ngIf="tablechamp.typ !== 'fk'" class="tablecol">{{tablechamp.desc}}</ion-col>
+              <ng-container *ngIf="tablechamp.typ === 'fk'">
+                <ng-container *ngFor="let lien of liens">
+                  <ng-container *ngIf="((lien.srctbl === latable.nom) && (lien.srcfld === tablechamp.nom))">
+                    <ion-col class="tablecol">{{lien.desc}}</ion-col>
+                  </ng-container>
+                </ng-container>
+              </ng-container>
+            </ng-container>
+          </ng-container>
+        </ion-row>
+      </thead>
+      <tbody>
+        <ng-container *ngIf="(table === 'commande') ? colorready : true">
+          <ng-container *ngFor="let donnee of donnees; index as j">
+            <ion-row  class="colored clickable-row relief longtab" [style.background-color]="(table == 'commande') ? couleur[j] : 'white'" [style.color]="(table == 'commande') ? ((luminosite(couleur[j])>127) ? 'black' : 'white') : 'black'">
+              <ng-container *ngFor="let tablechamp of latable.champs; index as i">
+                <ng-container *ngIf="latable.champs[i].typ !== 'pk' && latable.champs[i].vis !== 'n' && latable.champs[i].nom !== selcol && latable.champs[i].typ !== 'fk'">
+                  <ion-col class="tablecol">
+                      <div class="expanded fullheight" *ngIf="latable.champs[i].typ === 'prix'" (click)="onClickCellVal($event, j)">{{ donnees[j][i] | currency }}</div>
+                      <div class="expanded fullheight" *ngIf="latable.champs[i].typ === 'percent'" (click)="onClickCellVal($event, j)">{{ donnees[j][i] / 100 | percent }}</div>
+                      <!--<div class="expanded fullheight" *ngIf="latable.champs[i].typ === 'date'" (click)="onClickCellVal($event, j)">{{ donnees[j][i] | date: 'medium' }}</div>-->
+                      <div class="expanded fullheight" *ngIf="latable.champs[i].typ === 'text' || latable.champs[i].typ === 'ref' || latable.champs[i].typ === 'codepostal' || latable.champs[i].typ === 'codepromo' || latable.champs[i].typ === 'date'" (click)="onClickCellVal($event, j)">{{ donnees[j][i] }}</div>
+                      <ion-checkbox *ngIf="latable.champs[i].typ === 'bool'" [disabled]="(table == 'commande') ? true : false" [checked]="(donnees[j][i] > 0) ? 'true' : 'false'" (click)="onCheckCell($event, j, i)" aria-label=""></ion-checkbox>
+                  </ion-col>
+                </ng-container>
+                <ng-container *ngIf="latable.champs[i].typ === 'fk' && latable.champs[i].nom !== selcol">
+                  <ng-container *ngFor="let lien of liens">
+                    <ng-container *ngIf="((lien.srctbl === latable.nom) && (lien.srcfld === latable.champs[i].nom))">
+                      <ion-col class="tablecol" (click)="onClickCellVal($event, j)"><div class="expanded">{{ donnees[j][i] }}</div></ion-col>
+                    </ng-container>
+                  </ng-container>
+                </ng-container>
+              </ng-container>
+            </ion-row>
+          </ng-container>
+          </ng-container>
+      </tbody>
+    </ion-grid>
+  </div>
+  <div *ngIf="total <= 0">
+    <p><em>Il n'y a pas de {{ latable.desc }} à afficher</em></p>
+  </div>
+  <div *ngIf="pagination" class="divrpp overflownorm divrpp d-flex justify-content-between p-2">
+    <ngb-pagination class="nicecolor" [pageSize]="limite" [collectionSize]="getTotalPage() * limite" [(page)]="activepage" aria-label="Default pagination" (pageChange)="onPageChange(activepage)"></ngb-pagination>
+    <ion-select fill="outline" interface="popover" style="width: auto" placeholder="Nombre de résultats par page" (ionChange)="onChangeNbRes($event)" id="rppid{{this.model.getnumtable(table)}}" [value]="limite" [(ngModel)]="limite" (ngModelChange)="onPageChange(activepage)">
+      <ion-select-option *ngFor="let rp of rpp" [value]="rp">{{ rp }} résultats par page</ion-select-option>
+    </ion-select>
+  </div>
+</div>
+
+

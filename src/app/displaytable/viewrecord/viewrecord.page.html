@@ -1,0 +1,19 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title class="viewfull">{{ myTitle }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content scroll-x="true" scroll-y="true">
+  <app-presentationrecord action="view" [table]="table" [selcol]="selcol" [selid]="selid" [id]="id"></app-presentationrecord>
+  <br>
+  <br>
+  <br>
+  <ion-fab vertical="bottom" horizontal="start" slot="fixed">
+    <ion-fab-button class="otherbutton" id="exitid" (click)="gotoUpperPage()">
+      <ion-icon name="return-down-back-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

@@ -1,0 +1,7 @@
+{
+  "name": "praticboutic-merchant",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

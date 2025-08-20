@@ -1,0 +1,35 @@
+<ion-header [routerLink]="['/admin/login']">
+  <ion-img id="mainlogo" src="assets/img/logo-pratic-boutic.png"></ion-img>
+</ion-header>
+
+<ion-content>
+  <div class="tile">
+    <div class="example-full-width">
+      <br>
+      <form [formGroup]="form" class="example-form">
+        <ion-item>
+          <!--<ion-input fill="solid" detail="false" placeholder="Choississez votre boutic" formControlName="myControl" [value]="" (ionInput)="inputChanged($event)" type="text" slot="start"/>-->
+          <ion-select formControlName="aliasboutic" value="" aria-label="Boutic" interface="modal" placeholder="Choississez votre boutic" (ionChange)="selected($event)" [hidden]="options.length < 0">
+            <ion-select-option  [value]="option.alias" *ngFor="let option of opts">{{option.nom}}</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <div class="container centered">
+          <br>
+          <ion-label>OU</ion-label>
+          <ion-label><br></ion-label>
+          <ion-label>scanner votre QRcode Praticboutic</ion-label>
+          <br>
+          <ion-fab-button (click)="scan()" [disabled]="!isSupported">
+            <ion-icon name="scan"></ion-icon>
+          </ion-fab-button>
+        </div>
+      </form>
+      <br>
+        <ion-button shape="round" class="nice" [routerLink]="['/admin/login']" routerDirection="root">JE SUIS COMMERÇANT</ion-button>
+
+    </div>
+  </div>
+  <p *ngIf="!prod"> ID device : {{ token !== '' ? token : 'plateforme non supportée' }}</p>
+</ion-content>
+<div id="barre" *ngIf="getShowBarre()">Ce site utilise des cookies<div id="fermer" (mousedown)="setShowBarre(true)"></div></div>
+

@@ -1,0 +1,39 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title class="viewfull">{{ myTitle }}</ion-title>
+    </ion-toolbar>
+</ion-header>
+<ion-content>
+    @if (loading=== false) {
+        @switch(action) {
+            @case('update')
+            {
+                <app-updaterecord [form_]="form"></app-updaterecord>
+            }
+            @case('insert')
+            {
+                <app-insertrecord [form_]="form"></app-insertrecord>
+            }
+            @default {
+                <app-viewrecord [form_]="form"></app-viewrecord>
+            }
+        }
+
+    }
+    <br>
+    <br>
+    <br>
+    <ion-fab vertical="bottom" horizontal="start" slot="fixed">
+        <ion-fab-button class="otherbutton" id="cancelid" (click)="gotoUpperPage()">
+            <ion-icon name="close-outline"></ion-icon>
+        </ion-fab-button>
+    </ion-fab>
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+        <ion-fab-button type="submit" class="actionbutton" id="validid" (click)="doSubmitAction($event)">
+            <ion-icon name="checkmark-outline"></ion-icon>
+        </ion-fab-button>
+    </ion-fab>
+</ion-content>

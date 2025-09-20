@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Lignes de commande</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content id="mainic">
+    @if (!loading) {
+        <app-viewrecord [form_]="form"></app-viewrecord>
+    }
+  <!--<div id="det{{ numtable }}" class="twocol">
+    <div *ngFor="let champ of champs; index as i">
+      <ion-item *ngIf="champ.typ !== 'pk' && valeurs !== null && valeurs.length >= i">
+        <ion-label id="dtable{{ numtable }}lbl{{ i }}">{{ nomchamps[i] }}&nbsp;:&nbsp;{{ valeurs[i] }}</ion-label>
+      </ion-item>
+    </div>
+  </div>-->
+  <br/>
+  <br/>
+  <br/>
+  <ion-fab vertical="bottom" horizontal="start" slot="fixed">
+    <ion-fab-button class="otherbutton" id="exitid" (click)="gotoUpperPage()">
+      <ion-icon name="return-down-back-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

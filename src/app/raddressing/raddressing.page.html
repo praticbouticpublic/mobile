@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Changement de Courriel</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="radressingFormGroup" novalidate>
+    <ion-item>
+      <ion-input id="email" [maxlength]="255" name="email" type="email" placeholder="Courriel" autocomplete="username" formControlName="email"
+                title="Doit être une adresse de courriel valide" (ionChange)="bak('login',email)">
+      </ion-input>
+    </ion-item>
+      @if (isSubmitted && (errorControl.email.errors?.required ||errorControl.email.errors?.pattern))
+      {
+          <span class="error ion-padding">
+              Un courriel est requis
+          </span>
+      }
+  </form>
+  <br>
+  <br>
+  <br>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button class="actionbutton" id="validid" (click)="onSubmit()">
+      <ion-icon name="send-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  <!--<ion-fab vertical="bottom" horizontal="start" slot="fixed">
+    <ion-fab-button class="otherbutton" id="cancelid" (click)="cancel()">
+      <ion-icon name="arrow-undo-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>-->
+</ion-content>

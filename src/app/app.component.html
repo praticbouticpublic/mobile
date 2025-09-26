@@ -1,0 +1,30 @@
+
+<ion-app>
+  <ion-split-pane contentId="main-content">
+    <ion-menu contentId="main-content" type="overlay" class="greybackg" [swipeGesture]="true">
+      <ion-content class="greybackg">
+        <ion-list id="menu-list" class="backgrey greybackg petitmargecadre txtcenter">
+          <br>
+          <ion-img class="logoheader greybackg" src="assets/img/LOGO_PRATIC_BOUTIC.png" alt=""></ion-img>
+          <br>
+          @if (!prod)
+          {
+              <ion-label class="greybackg smallfont">{{ token }}<br></ion-label>
+          }
+          <ion-label class="greybackg">Bienvenue, <br>{{ getlogin() }}<br><br>Menu<br></ion-label>
+          <ion-note class="greybackg"></ion-note>
+            @for (page of Pages; track page.url; let i = $index) {
+                <ion-menu-toggle auto-hide="false" class="greybackg">
+                    <ion-item (click)="activeIndex = i;frommenu(activeIndex)" routerDirection="root" [routerLink]="[page.url]" replaceUrl="true"  lines="none"
+                              [detail]="false" [class.selected]="activeIndex === i" class="greybackg">
+                        <ion-icon slot="start" [src]="'assets/svg/' + page.icon + '.svg'" class="greybackgb"></ion-icon>
+                        <ion-label class="greybackg">{{ page.title }}</ion-label>
+                    </ion-item>
+                </ion-menu-toggle>
+            }
+        </ion-list>
+      </ion-content>
+    </ion-menu>
+    <ion-router-outlet id="main-content" #mainContent class="greybackg"></ion-router-outlet>
+  </ion-split-pane>
+</ion-app>

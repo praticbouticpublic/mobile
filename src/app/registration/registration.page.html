@@ -1,0 +1,50 @@
+<ion-header class="whitebackg">
+  <ion-toolbar class="whitebackg">
+    <br>
+    <ion-img id="mainlogo" src="assets/img/logo-pratic-boutic.png"></ion-img>
+    <br>
+    <ion-img src="assets/img/timeline-etape-1.png" alt=""></ion-img>
+    <br>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ppanel">
+    @if (loaded)
+    {
+        <div class="whitebackg centered ion-text-center">
+            <form [formGroup]="registrationFormGroup" novalidate>
+                <br>
+                <ion-label class="txtcenter txtwhite bld">JE ME CONNECTE</ion-label>
+                <ion-item lines="full" class="rounded">
+                    <ion-input shape="round" placeholder="Courriel" id="email" [maxlength]="255" name="email" type="email" autocomplete="username" formControlName="email"
+                               title="Doit être une adresse de courriel valide" (ionChange)="bak('login',email)"></ion-input>
+                </ion-item>
+                @if (isSubmitted && (errorControl.email.errors?.required || errorControl.email.errors?.pattern))
+                {
+                    <span class="error ion-padding txtwhite">
+                        Un courriel est requis
+                    </span>
+                }
+            </form>
+            <br>
+            <ion-button shape="round" class="otherbutton" (click)="googleSignup()" expand="block">
+                S'inscrire avec&nbsp;
+                <ion-icon slot="end" name="logo-google"></ion-icon>
+            </ion-button>
+            <br>
+            <ion-row>
+                <ion-col>
+                    <ion-button shape="round" type="button" id="validid" class="actionbutton" expand="block" (click)="onSubmit()"><ion-icon name="send-outline"></ion-icon>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CONTINUER</ion-button>
+                </ion-col>
+            </ion-row>
+            <br>
+            <!--<ion-fab vertical="bottom" horizontal="start" slot="fixed">
+              <ion-fab-button class="otherbutton" id="cancelid" (click)="cancel()">
+                <ion-icon name="arrow-undo-outline"></ion-icon>
+              </ion-fab-button>
+            </ion-fab>-->
+
+        </div>
+
+    }
+</ion-content>

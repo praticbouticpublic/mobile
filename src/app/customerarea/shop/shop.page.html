@@ -1,0 +1,90 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Boutic</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    @if (loadingState)
+    {
+        <div class="centerflex">
+            <ion-spinner class="actioncolor" name="crescent"></ion-spinner>
+        </div>
+    }
+    @else
+    {
+        <form [formGroup]="formGroup">
+            <ion-item lines="full">
+                <ion-input labelPlacement="floating" label="Alias de la boutic :" (ionInput)="flagAsModified()" class="fieldperso" id="pbaliasid" formControlName="alias" type="text" [required] pattern="[a-z0-9]{3,}" (ionInput)="bak('pbca_shop_alias', formGroup.controls.alias.value)"></ion-input>
+            </ion-item>
+            @if (isSubmitted && (errorControl.alias.errors?.required ||errorControl.alias.errors?.pattern))
+            {
+                <span class="error ion-padding">
+                    L'alias de la boutic contenant uniquement des minuscules et des chiffres d'au moins 3 caractères de long est requis
+                </span>
+            }
+            <ion-item lines="full">
+                <ion-button class="actionbutton" [href]="'admin/debut/' + formGroup.controls.alias?.value + '/3/0'">Guichet Clientèle</ion-button>
+                <ion-button (click)="writeToClipboard(frontroot + formGroup.controls.alias?.value)">Lien&nbsp;<ion-icon name="copy-outline"></ion-icon></ion-button>
+            </ion-item>
+            <ion-item lines="full">
+                <ion-input label="Nom de la boutic :" labelPlacement="floating" (ionInput)="flagAsModified()" class="fieldperso" id="pbnomid" formControlName="nom" type="text" [required] (ionInput)="bak('pbca_shop_nom', formGroup.controls.nom.value)"></ion-input>
+            </ion-item>
+            @if (isSubmitted && errorControl.pbnom.errors?.required)
+            {
+                <span class="error ion-padding">
+                    Un nom valide est requis
+                </span>
+            }
+
+            <ion-item class="imageitem" lines="full">
+                <div>
+                    <ion-button expand="block" (click)="pickImages()" color="secondary" shape="round" fill="solid">Chargement du logo</ion-button>
+                    <div class="frameimg">
+                        @if (formGroup.get('logo')?.value !== '' && formGroup.get('logo')?.value !== null)
+                        {
+                            <div>
+                                <img id="artlogo" class="imgart" [src]="(srvroot + 'upload/' + formGroup.get('logo')?.value)"/>
+                                <div (click)="flagAsModified();closeimg()">
+                                    <ion-img id="logofermer" class="imgclose" src="assets/img/fermer.png" />
+                                </div>
+                            </div>
+                        }
+                        @if (!logoloaded)
+                        {
+                            <ion-spinner id="spinimgid" name="crescent"></ion-spinner>
+                        }
+                    </div>
+                </div>
+            </ion-item>
+            <ion-item lines="full">
+                <ion-input label="Courriel : " labelPlacement="floating" (ionInput)="flagAsModified()" class="fieldperso" id="pbemailid" formControlName="email" type="email" [required] (ionInput)="bak('pbca_shop_pbemail', formGroup.controls.email.value)"></ion-input>
+                @if (isSubmitted && (errorControl.email.errors?.required || errorControl.email.errors?.pattern))
+                {
+                    <span class="error ion-padding">
+                        Un courriel valide de la forme user&#64;domain.ext est requis
+                    </span>
+                }
+            </ion-item>
+            <br/>
+            <br/>
+            <br/>
+            @if (modified)
+            {
+                <ion-fab vertical="bottom" horizontal="start" slot="fixed">
+                    <ion-fab-button  class="otherbutton" id="cancelpersoid" (click)="onUndo()">
+                        <ion-icon name="close-outline"></ion-icon>
+                    </ion-fab-button>
+                </ion-fab>
+                <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+                    <ion-fab-button type="submit" class="actionbutton" id="validparamid" (click)="onSubmit()">
+                        <ion-icon name="checkmark-outline"></ion-icon>
+                    </ion-fab-button>
+                </ion-fab>
+            }
+        </form>
+    }
+</ion-content>

@@ -1,0 +1,85 @@
+<ion-header class="whitebackg">
+  <ion-toolbar class="whitebackg">
+    <ion-img id="mainlogo" src="assets/img/logo-pratic-boutic.png"></ion-img>
+  </ion-toolbar>
+  <ion-title class="txtcenter txtgrey">
+      @if (!prod)
+      {
+          <div> Ver. {{ appversion }} <br> &#64; {{ srvroot }}</div>
+      }
+  </ion-title>
+</ion-header>
+
+<ion-content class="ppanel">
+    @if (!loaded)
+    {
+        <div class="centerflex">
+            <ion-spinner name="crescent"></ion-spinner>
+        </div>
+    }
+    @else
+    {
+        <div class="whitebackg centered ion-text-center">
+            <form [formGroup]="loginFormGroup" (ngSubmit)="onSubmit()" autocomplete="on" novalidate>
+                <br>
+                <ion-label class="txtcenter txtwhite bld">JE ME CONNECTE</ion-label>
+                <ion-item lines="full" class="rounded">
+                    <ion-input shape="round" id="email" formControlName="email" type="email" autocomplete="username" label="" placeholder="Courriel" [required]></ion-input>
+                </ion-item>
+                @if(isSubmitted && errorControl.email.errors?.required)
+                {
+                    <span class="error ion-padding txtwhite">
+                        Le courriel est requis
+                    </span>
+                }
+                <br>
+                <ion-item lines="full" class="rounded">
+                    <ion-input id="password" formControlName="password" [type]="hide ? 'password' : 'text'" autocomplete="current-password" label="" placeHolder="Mot de Passe" [required]></ion-input>
+                    <ion-icon class="eyeset" slot="end" [name]="hide ? 'eye' : 'eye-off'" (click)="hide = !hide"></ion-icon>
+                </ion-item>
+                @if (isSubmitted && errorControl.password.errors?.required)
+                {
+                    <span class="error ion-padding txtwhite">
+                        Le mot de passe est requis
+                    </span>
+                }
+                <br>
+                <ion-row>
+                    <ion-col>
+                        <ion-button shape="round" type="submit" class="actionbutton rounded" expand="block">VALIDER</ion-button>
+                        <ion-chip class="txtwhite bld txtunderline" (click)="forgotpassword()">Mot de passe oublié ?</ion-chip>
+                        <br>
+                        <br>
+                        <ion-button shape="round" class="otherbutton" (click)="googleSignup()" expand="block">
+                            S'inscrire avec&nbsp;
+                            <ion-icon slot="end" name="logo-google"></ion-icon>
+                        </ion-button>
+                        <br>
+                        <br>
+                        <br>
+                        <ion-label class="txtcenter txtwhite bld">PAS ENCORE DE BOUTIC ?</ion-label>
+                        <ion-button shape="round" type="button" class="otherbutton" expand="block" (click)="registration()">Je crée ma boutic</ion-button>
+                        <br>
+                        <br>
+                        <br>
+                        <ion-button shape="round" type="button" class="rounded greybackg" expand="block" href="admin/welcome">Accès Client</ion-button>
+                    </ion-col>
+                </ion-row>
+            </form>
+        </div>
+    }
+</ion-content>
+<ion-footer class="ion-no-border">
+    @if (iswillQuit())
+    {
+        <ion-chip [outline]="true">
+            <ion-label>Appuyer encore sur la touche arrière pour fermer l'application</ion-label>
+        </ion-chip>
+    }
+    @if (errconnect)
+    {
+        <div class="attention">Impossible de se connecter au serveur</div>
+        <div class="attention"> {{ errconnectmsg }} </div>
+    }
+</ion-footer>
+

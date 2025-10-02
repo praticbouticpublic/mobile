@@ -1,0 +1,93 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Réglages</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    @if (loadingState)
+    {
+        <div class="centerflex">
+            <ion-spinner class="actioncolor" name="crescent"></ion-spinner>
+        </div>
+    }
+    @else
+    {
+        <form [formGroup]="formGroup">
+            <ion-item lines="full">
+                <ion-input label="Sujet du courriel :" labelPlacement="floating" (ionInput)="flagAsModified()" id="subjectmailid" formControlName="subjectmail" type="text" class="fieldparam" (ionInput)="bak('pbca_settings_subjectmail', formGroup.controls.subjectmail.value)"></ion-input>
+            </ion-item>
+            <ion-item lines="full">
+                <ion-checkbox (ionChange)="flagAsModified()" id="validationsmsid" formControlName="validationsms" class="fieldparam" (ionChange)="bak('pbca_settings_validationsms', formGroup.controls.validationsms.value)">Validation des commandes par SMS :</ion-checkbox>
+            </ion-item>
+            <ion-item lines="full">
+                <ion-checkbox (ionChange)="flagAsModified()" id="verifcpid" formControlName="verifcp" class="fieldparam" (ionChange)="bak('pbca_settings_verifcp', formGroup.controls.verifcp.value)">Vérification des codes postaux :</ion-checkbox>
+            </ion-item>
+            <ion-item lines="full">
+                <ion-select [interfaceOptions]="customAlertOptions" label="Choix de paiement : " labelPlacement="floating" (ionChange)="flagAsModified()" id="choixpaiementid" formControlName="choixpaiement" class="fieldparam" (ionChange)="bak('pbca_settings_choixpaiement', formGroup.controls.choixpaiement.value)">
+                    <ion-select-option value='COMPTANT'>En ligne par CB</ion-select-option>
+                    <ion-select-option value='LIVRAISON'>En direct par vos moyens</ion-select-option>
+                    <ion-select-option value='TOUS'>En ligne & En direct</ion-select-option>
+                </ion-select>
+            </ion-item>
+            <ion-item lines="full">
+                <ion-input label="Texte du paiement comptant : " labelPlacement="floating" (ionInput)="flagAsModified()" id="mpcomptantid" formControlName="mpcomptant" class="fieldparam" type="text" (ionInput)="bak('pbca_settings_mpcomptant', formGroup.controls.mpcomptant.value)"></ion-input>
+            </ion-item>
+            <ion-item lines="full">
+                <ion-input label="Texte du paiement à la livraison : " labelPlacement ="floating"(ionInput)="flagAsModified()" id="mplivraisonid" formControlName="mplivraison" class="fieldparam" type="text" (ionInput)="bak('pbca_settings_mplivraison', formGroup.controls.mplivraison.value)"></ion-input>
+            </ion-item>
+            <ion-item lines="full">
+                <ion-select [interfaceOptions]="customAlertOptions" label="Choix de la méthode : " labelPlacement="floating" (ionChange)="flagAsModified()" id="choixmethodid" formControlName="choixmethod" class="fieldparam" (ionChange)="bak('pbca_settings_choixmethod', formGroup.controls.choixmethod.value)">
+                    <ion-select-option value="EMPORTER">Emporter</ion-select-option>
+                    <ion-select-option value='LIVRER'>Livrer</ion-select-option>
+                    <ion-select-option value='TOUS'>Emporter & Livrer</ion-select-option>
+                </ion-select>
+            </ion-item>
+            <ion-item lines="full">
+                <ion-input label="Texte de la vente à la livraison : " labelPlacement="floating" (ionInput)="flagAsModified()" id="cmlivrerid" formControlName="cmlivrer" type="text" class="fieldparam" (ionInput)="bak('pbca_settings_cmlivrer', formGroup.controls.cmlivrer.value)"></ion-input>
+            </ion-item>
+            <ion-item lines="full">
+                <ion-input label="Texte de la vente à emporter :" labelPlacement="floating" (ionInput)="flagAsModified()" id="cmemporterid" formControlName="cmemporter" class="fieldparam" type="text" (ionInput)="bak('pbca_settings_cmemporter', formGroup.controls.cmemporter.value)"></ion-input>
+            </ion-item>
+            <ion-item lines="full">
+                <ion-input label="Montant minimum de la commande : " labelPlacement="floating" (ionInput)="flagAsModified()" id="mntmincmdid" formControlName="mntmincmd" class="fieldparam" type="number" min="0" step="0.01" (ionInput)="bak('pbca_settings_mntmincmd', formGroup.controls.mntmincmd.value)" [required]></ion-input>
+            </ion-item>
+            @if (isSubmitted && (errorControl.mntmincmd.errors?.required || errorControl.mntmincmd.errors?.min))
+            {
+                <span class="error ion-padding">
+                  Un montant minimun supérieur ou égale à zéro est requis
+                </span>
+            }
+            <ion-item lines="full">
+                <ion-select [interfaceOptions]="customAlertOptions" label="Tailles des images :" labelPlacement="floating" (ionChange)="flagAsModified()" id="sizeimgid" formControlName="sizeimg" class="fieldparam" (ionChange)="bak('pbca_settings_sizeimg', formGroup.controls.sizeimg.value)">
+                    <ion-select-option value="smallimg">Petites</ion-select-option>
+                    <ion-select-option value="bigimg">Grandes</ion-select-option>
+                </ion-select>
+            </ion-item>
+            <ion-item lines="full">
+                <ion-select [interfaceOptions]="customAlertOptions" label="Système de paiement :" labelPlacement="floating" (ionChange)="flagAsModified()" id="moneysystemid" formControlName="moneysystem" class="fieldparam" (ionChange)="bak('pbca_settings_moneysystem', formGroup.controls.moneysystem.value)">
+                    <ion-select-option value="STRIPE MARKETPLACE">STRIPE</ion-select-option>
+                </ion-select>
+            </ion-item>
+        </form>
+    }
+  <br/>
+  <br/>
+  <br/>
+    @if (modified)
+    {
+      <ion-fab vertical="bottom" horizontal="start" slot="fixed">
+          <ion-fab-button class="otherbutton" id="cancelparamid" (click)="onUndo()">
+              <ion-icon name="close-outline"></ion-icon>
+          </ion-fab-button>
+      </ion-fab>
+      <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+         <ion-fab-button type="submit" class="actionbutton" id="validparamid" (click)="onSubmit()">
+            <ion-icon name="checkmark-outline"></ion-icon>
+         </ion-fab-button>
+      </ion-fab>
+    }
+</ion-content>

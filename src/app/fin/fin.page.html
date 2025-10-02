@@ -1,0 +1,50 @@
+<ion-header>
+    <ion-card [routerLink]="['/admin/welcome']" [hidden]="!loadingState">
+        <ion-img id="mainlogo" src="assets/img/logo-pratic-boutic.png" />
+    </ion-card>
+    <ion-toolbar>
+        <ion-title>Fin de la commande</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <div id="main">
+        @if(!loadingState) {
+            @if(logo !== undefined) {
+                <ion-img id="logo" [src]="srvroot + 'upload/' + logo" [hidden]="!logo" />
+            }
+            <p id="marqueid" class="marque" [hidden]="logo">{{ nom }}</p>
+        }
+        @else {
+            <div class="spincenter">
+                <ion-spinner id="spinimgid" class="bigspinner"></ion-spinner>
+            </div>
+        }
+
+        @if(!loadingState) {
+            <div class="fsub">
+                <p class="panneau acenter" id="envoieok">
+                    Votre commande a été envoyée.<br>
+                    Nous vous remercions pour votre fidélité.<br>
+                </p>
+            </div>
+        }
+    </div>
+</ion-content>
+
+<ion-footer>
+    <div id="footer" [hidden]="loadingState">
+        <ion-button color="dark" class="soloindic ripplenice" id="recommander" (click)="gotoDebut()">
+            Passer une autre commande
+        </ion-button>
+    </div>
+
+    @if(getShowBarre()) {
+        <div id="barre">
+            Ce site utilise des cookies
+            <div id="fermer" (mousedown)="setShowBarre(true)"></div>
+        </div>
+    }
+</ion-footer>
+
+

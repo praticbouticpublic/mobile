@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Générateur de QR Code</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="qrcodegenForm" (ngSubmit)="onSubmit()" >
+    <ion-item lines="full">
+      <ion-radio-group formControlName="methv" id="methvid" allow-empty-selection="false" name="radio-group">
+        Méthode de vente:
+        <ion-radio justify="start" labelPlacement="end" id="methtableid" name="methv" value="2">A Table</ion-radio>
+        <ion-radio justify="start" labelPlacement="end" id="methqnc" name="methv" value="3">Qlick'n'Collect</ion-radio>
+      </ion-radio-group>
+    </ion-item>
+      @if (qrcodegenForm.value.methv === '2')
+      {
+          <ion-item>
+              <ion-input label="Nombre de table : " formControlName="nbtable" id="nbtableid" type="number" class="inpprix inputqrcode" name="nbtable" step="1" min="1" value="1"></ion-input>
+          </ion-item>
+      }
+      <ion-item>
+          <ion-input label="Nombre d'exemplaire : " formControlName="nbex" id="nbexid" type="number" class="inpprix inputqrcode" name="nbex" step="1" min="1" value="1"></ion-input>
+      </ion-item>
+    <br>
+    <ion-button class="actionbutton" type="submit">Générer le PDF de QRCode</ion-button>
+  </form>
+</ion-content>

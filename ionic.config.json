@@ -1,0 +1,7 @@
+{
+  "name": "praticboutic-mobile",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

@@ -1,0 +1,129 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Client</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    @if (loadingState)
+    {
+        <div class="centerflex">
+            <ion-spinner class="actioncolor" name="crescent"></ion-spinner>
+        </div>
+    }
+    @else
+    {
+        <form [formGroup]="formGroup">
+            <ion-item lines="full">
+                <ion-input (ionInput)="flagAsModified()" label="Mot de Passe : " labelPlacement="floating" id="clpassid" name="clpass" formControlName="clpass" [type]="hide ? 'password' : 'text'" class="fieldclient" (ionInput)="bak('pbca_client_clpass', formGroup.controls.clpass.value)"></ion-input>
+                <ion-icon class="eyeset" slot="end" [name]="hide ? 'eye-off' : 'eye'" (click)="hide = !hide"></ion-icon>
+            </ion-item>
+            @if (isSubmitted && (errorControl.clpass.errors?.required ||errorControl.clpass.errors?.pattern))
+            {
+                <span class="error ion-padding" >
+                    Le mot de passe doit contenir au moins un chiffre, une majuscule, une minuscule, un signe parmi !&#64;#$%&*? et être de au moins 8 caractères
+                </span>
+            }
+            <ion-item lines="full">
+                <ion-input (ionInput)="flagAsModified()" label="Mot de passe (confirmation) : " labelPlacement="floating" id="clpassconfid" name="clpassconf" formControlName="clpassconf" [type]="hide2 ? 'password' : 'text'"></ion-input>
+                <ion-icon class="eyeset" slot="end" [name]="hide2 ? 'eye-off' : 'eye'" (click)="hide2 = !hide2"></ion-icon>
+            </ion-item>
+            @if (isSubmitted && (errorControl.clpassconf.errors?.required ||errorControl.clpassconf.errors?.pattern))
+            {
+                <span class="error ion-padding">
+                    La confirmation du mot de passe doit contenir au moins un chiffre, une majuscule, une minuscule, un signe parmi !&#64;#$%&*? et être de au moins 8 caractères
+                </span>
+            }
+            <ion-item lines="full">
+                <ion-radio-group (ionChange)="flagAsModified()" id="clqualiteid" formControlName="clqualite" class="fieldclient" name="clqualite" value="Monsieur" required (ionChange)="bak('pbca_client_clqualite', formGroup.controls.clqualite.value)">
+                    Civilité:
+                    <ion-radio labelPlacement="end" justify="start" id="clhommeid" name="clmonsieur" value="Monsieur" class="fieldclient radio">Monsieur</ion-radio>
+                    <ion-radio labelPlacement="end" justify="start" id="clfemmeid" name="clmadame" value="Madame" class="fieldclient radio">Madame</ion-radio>
+                </ion-radio-group>
+            </ion-item>
+            @if (isSubmitted && errorControl.clqualite.errors?.required)
+            {
+                <span class="error ion-padding">
+                    La civilité est requise
+                </span>
+            }
+            <ion-item lines="full">
+                <ion-input (ionInput)="flagAsModified()" label="Nom : " labelPlacement="floating" id="clnomid" formControlName="clnom" type="text" class="fieldclient" [required] (ionInput)="bak('pbca_client_clnom', formGroup.controls.clnom.value)"></ion-input>
+            </ion-item>
+            @if (isSubmitted && errorControl.clnom.errors?.required)
+            {
+                <span class="error ion-padding">
+                    Le nom est requis
+                </span>
+            }
+            <ion-item lines="full">
+                <ion-input (ionInput)="flagAsModified()" label="Prénom : " labelPlacement="floating" id="clprenomid" formControlName="clprenom" type="text" class="fieldclient" [required] (ionInput)="bak('pbca_client_clprenom', formGroup.controls.clprenom.value)"></ion-input>
+            </ion-item>
+            @if (isSubmitted && errorControl.clprenom.errors?.required)
+            {
+                <span class="error ion-padding">
+                    Le prénom est requis
+                </span>
+            }
+            <ion-item lines="full">
+                <ion-input (ionInput)="flagAsModified()" label="Adresse (ligne1) : " labelPlacement="floating" id="cladr1id" formControlName="cladr1" type="text" class="fieldclient" [required] (ionInput)="bak('pbca_client_cladr1', formGroup.controls.cladr1.value)"></ion-input>
+            </ion-item>
+            @if (isSubmitted && errorControl.cladr1.errors?.required)
+            {
+                <span class="error ion-padding">
+                    La ligne d'adresse numéro 1 est requise
+                </span>
+            }
+            <ion-item lines="full">
+                <ion-input (ionInput)="flagAsModified()" label="Adresse (ligne2) : " labelPlacement="floating" id="cladr2id" formControlName="cladr2" type="text" class="fieldclient" (ionInput)="bak('pbca_client_cladr2', formGroup.controls.cladr2.value)"></ion-input>
+            </ion-item>
+            <ion-item lines="full">
+                <ion-input (ionInput)="flagAsModified()" label="Code postal : " labelPlacement="floating" id="clcpid" formControlName="clcp" type="number" inputmode="text" class="fieldclient" [required] pattern="[0-9]{5}" (ionInput)="bak('pbca_client_clcp', formGroup.controls.clcp.value)"></ion-input>
+            </ion-item>
+            @if (isSubmitted && (errorControl.clcp.errors?.required || errorControl.clcp.errors?.pattern))
+            {
+                <span class="error ion-padding">
+                  Un code postal francais est requis
+                </span>
+            }
+
+            <ion-item lines="full">
+                <ion-input (ionInput)="flagAsModified()" label="Ville : " labelPlacement="floating" id="clvilleid" formControlName="clville" type="text" class="fieldclient" [required] (ionInput)="bak('pbca_client_clville', formGroup.controls.clville.value)"></ion-input>
+            </ion-item>
+            @if (isSubmitted && errorControl.clville.errors?.required)
+            {
+                <span class="error ion-padding">
+                    La ville est requise
+                </span>
+            }
+            <ion-item lines="full">
+                <ion-input (ionInput)="flagAsModified()" label="Téléphone : " labelPlacement="floating" id="cltelid" formControlName="cltel" type="text" class="fieldclient" [required] pattern="" (ionInput)="bak('pbca_client_cltel', formGroup.controls.cltel.value)"></ion-input>
+            </ion-item>
+            @if (isSubmitted && (errorControl.cltel.errors?.required || errorControl.cltel.errors?.pattern))
+            {
+                <span class="error ion-padding">
+                    Un téléphone français est requis
+                </span>
+            }
+        </form>
+    }
+  <br/>
+  <br/>
+  <br/>
+  @if (modified)
+  {
+        <ion-fab vertical="bottom" horizontal="start" slot="fixed">
+            <ion-fab-button  class="otherbutton" id="cancelclientid" (click)="onUndo()">
+                <ion-icon name="close-outline"></ion-icon>
+            </ion-fab-button>
+        </ion-fab>
+        <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+            <ion-fab-button  type="submit" class="actionbutton" id="validclientid" (click)="onSubmit()">
+                <ion-icon name="checkmark-outline"></ion-icon>
+            </ion-fab-button>
+        </ion-fab>
+  }
+</ion-content>

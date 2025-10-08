@@ -1,0 +1,94 @@
+<ion-header class="whitebackg">
+  <ion-toolbar class="whitebackg">
+    <br>
+    <ion-img id="mainlogo" src="assets/img/logo-pratic-boutic.png"></ion-img>
+    <br>
+    <ion-img src="assets/img/timeline-etape-4.png" alt=""></ion-img>
+    <br>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="">
+    @if (!loaded)
+    {
+        <div class="centerflex">
+            <ion-spinner class="bigspinner" name="crescent"></ion-spinner>
+        </div>
+    }
+    @else
+    {
+        <form id="signup-form" [formGroup]="shopsetForm" novalidate>
+            <ion-img src="assets/img/illustration_6.png" alt="" class="petitmargecadre"></ion-img>
+            <ion-item class="txtcenter txtpink">
+                <ion-label><h1><b>Pramètrage de la Boutic</b></h1></ion-label>
+            </ion-item>
+            <ion-list>
+                <ion-item>
+                    <ion-select [interfaceOptions]="customAlertOptions" label="Type d'activité : " class="paramfieldc" id="activiteid" name="activite" value="">
+                        <ion-select-option value='' selected></ion-select-option>
+                        <ion-select-option value='COMMERCE'>Commerce</ion-select-option>
+                        <ion-select-option value='RESTAURATION'>Restauration</ion-select-option>
+                        <ion-select-option value='AUTRES'>Autres</ion-select-option>
+                    </ion-select>
+                </ion-item>
+                <ion-item>
+                    <ion-select [interfaceOptions]="customAlertOptions" label="Méthode de vente : " formControlName="chxmethode" class="paramfieldc" id="chxmethodeid" name="chxmethode" value="TOUS" selectedItem="TOUS" (ionChange)="bak('praticboutic_shopsettings_chxmethode', shopsetForm.value.chxmethode)">
+                        <ion-select-option value='EMPORTER'>Emporter</ion-select-option>
+                        <ion-select-option value='LIVRER'>Livrer</ion-select-option>
+                        <ion-select-option value='TOUS' selected>Emporter & Livrer</ion-select-option>
+                    </ion-select>
+                </ion-item>
+                @if (isSubmitted && errorControl.chxmethode.errors?.required)
+                {
+                    <span class="error ion-padding">
+                        Une méthode de vente est requise
+                    </span>
+                }
+                <ion-item>
+                    <ion-select [interfaceOptions]="customAlertOptions" label="Méthode de paiement : " formControlName="chxpaie" class="paramfieldc" id="chxpaieid" name="chxpaie" value="En ligne & En direct" selectedItem="TOUS" (ionChange)="bak('praticboutic_shopsettings_chxpaie', shopsetForm.value.chxpaie)">
+                        <ion-select-option value='COMPTANT'>En ligne par CB</ion-select-option>
+                        <ion-select-option value='LIVRAISON'>En direct par vos moyens</ion-select-option>
+                        <ion-select-option value='TOUS' selected>En ligne & En direct</ion-select-option>
+                    </ion-select>
+                </ion-item>
+                <ion-item>
+                    <ion-input label="Minimum Commande : " formControlName="mntmincmd" class="textright paramfieldc inpprix" id="mntmincmdid" type='number' step='0.01' min='0' name="mntmincmd" value="1" (ionChange)="bak('praticboutic_shopsettings_mntmincmd', shopsetForm.value.mntmincmd)"></ion-input>
+                    <ion-label id="euroidlbl">&nbsp;€</ion-label>
+                </ion-item>
+                <ion-item>
+                    <ion-row>
+                        <ion-radio-group formControlName="validsms" id="validsmsid" name="validsms" value="on" (ionChange)="bak('praticboutic_shopsettings_validsms', shopsetForm.value.validsms === 'on' ? '1' : '0')">
+                            Validation Commande par SMS :
+                            <ion-row>
+                                <ion-radio justify="start" labelPlacement="end" type="radio" id="smson" name="validsmson" value="on">Activé</ion-radio>
+                                <ion-radio justify="start" labelPlacement="end" type="radio" id="smsoff" name="validsmsoff" value="off">Désactivé</ion-radio>
+                            </ion-row>
+                        </ion-radio-group>
+                    </ion-row>
+                </ion-item>
+                @if (isSubmitted && errorControl.validsms.errors?.required)
+                {
+                    <span class="error ion-padding">
+                        Vous devez choisir si vous activé ou désactivé les commandes par SMS
+                    </span>
+                }
+            </ion-list>
+        </form>
+    }
+  <br>
+  <ion-row>
+    <ion-col>
+      <ion-button shape="round" type="button" id="validid" class="actionbutton" expand="block" (click)="onSubmit()"><ion-icon name="send-outline"></ion-icon>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CONTINUER</ion-button>
+    </ion-col>
+  </ion-row>
+  <br>
+  <br>
+  <!--<ion-fab vertical="bottom" horizontal="start" slot="fixed">
+    <ion-fab-button class="otherbutton" id="cancelid" (click)="onCancel()">
+      <ion-icon name="close-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>-->
+  <br>
+  <br>
+  <br>
+</ion-content>

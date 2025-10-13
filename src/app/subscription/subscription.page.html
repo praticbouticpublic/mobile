@@ -1,0 +1,117 @@
+<ion-header>
+  <ion-toolbar>
+      @if (menuenabled)
+      {
+          <ion-buttons slot="start">
+              <ion-menu-button></ion-menu-button>
+          </ion-buttons>
+      }
+    <ion-title>Abonnements</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+    @if (!loaded)
+    {
+        <div class="centerflex">
+            <ion-spinner  class="actioncolor"  name="crescent"></ion-spinner>
+        </div>
+    }
+  <div id="workspace" class="fcb enlarged vscroll">
+    <div id="spaceid" style="display: block;">
+      <div class="">
+        <div id="bouticlinks">
+          <!-- Account list is placed here -->
+            @for (subscription of subscriptions; track subscription.aborefS; let c = $index)
+            {
+                <div>
+                    @if (!subscription.status.startsWith('incomplete'))
+                    {
+                        <ion-list>
+                            <ion-item-divider class="othercolor">
+                                <ion-label>
+                                    Référence: ABOPB{{ subscription.aboref }}
+                                </ion-label>
+                            </ion-item-divider>
+                            <ion-item>
+                                @switch (subscription.usagetype)
+                                {
+                                    @case('licensed')
+                                    {
+                                        <ion-label>
+                                            Tarif : {{(subscription.decimalprice / 100) | number : '1.2-2'}} {{subscription.currency}} {{subscription.interval}}
+                                        </ion-label>
+                                    }
+                                    @case('recurring')
+                                    {
+                                        <ion-label>
+                                            Tarif : {{(subscription.decimalprice / 100) | number : '1.2-2'}} {{subscription.currency}} {{subscription.interval}}
+                                        </ion-label>
+                                    }
+                                    @case('metered')
+                                    {
+                                        <ion-label>
+                                            Tarif : {{subscription.decimalprice}} % de commission
+                                        </ion-label>
+                                    }
+                                }
+                            </ion-item>
+                            <ion-item>
+                                @switch (subscription.status)
+                                {
+                                    @case('active')
+                                    {
+                                        <ion-label>
+                                            Etat : Actif
+                                        </ion-label>
+                                    }
+                                    @case('canceled')
+                                    {
+                                        <ion-label>
+                                            Etat : Annulé
+                                        </ion-label>
+                                    }
+                                    @case('active')
+                                    {
+                                        @if (subscription.status !== 'canceled')
+                                        {
+                                            <ion-label>
+                                                Etat : {{subscription.status}}
+                                            </ion-label>
+                                        }
+                                    }
+
+                                }
+                                <br>
+                            </ion-item>
+                            <ion-item>
+                                @if (subscription.status === 'active' && !subscription.undercancel)
+                                {
+                                    <ion-button class="actionbutton" (click)="onCancel(subscription)">Annulation</ion-button><br>
+                                }
+                            </ion-item>
+                        </ion-list>
+                    }
+                </div>
+            }
+        </div>
+      </div>
+    </div>
+    <ion-chip (click)="confirmDelAlert()">Supprimer le compte ?</ion-chip>
+  </div>
+  <br>
+  <br>
+  <br>
+    @if (loaded)
+    {
+        <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+            <ion-fab-button class="actionbutton" id="addaboid" (click)="goToAddSubscription()">
+                <ion-icon name="add"></ion-icon>
+            </ion-fab-button>
+        </ion-fab>
+    }
+  <!--<ion-fab *ngIf="!menuenabled && loaded" vertical="bottom" horizontal="start" slot="fixed">
+    <ion-fab-button class="otherbutton" id="exitid" (click)="gotoLoginPage()">
+      <ion-icon name="return-down-back-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>-->
+</ion-content>

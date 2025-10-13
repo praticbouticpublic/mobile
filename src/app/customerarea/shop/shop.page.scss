@@ -1,0 +1,30 @@
+.actionbutton
+{
+    --background:#009CDB;
+}
+
+.otherbutton
+{
+  --background: #e2007a;
+  --border-color: #e2007a;
+  --color: white;
+  font-weight: bold;
+}
+
+.centerflex
+{
+    justify-content: center;
+    display: flex; 
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
+ion-spinner {
+    transform: scale(3);
+}
+
+.actioncolor
+{
+    --color:#009CDB;
+}

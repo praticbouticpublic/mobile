@@ -1,0 +1,147 @@
+.centerflex
+{
+    justify-content: center;
+    display: flex; 
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
+ion-spinner {
+    transform: scale(3);
+    color:#e2007a;
+}
+
+.attention
+{
+    background-color: red;
+    color: white;
+    line-height: 300%;
+    text-align: center;
+}
+
+
+.txtcenter
+{
+    text-align: center;
+}
+
+.txtunderline
+{
+    text-decoration: underline;
+}
+
+.actionbutton
+{
+    --background:#009CDB;
+}
+
+.otherbutton
+{
+    --background: white;
+    --border-color: #e2007a;
+    --color: #e2007a;
+}
+
+.whitebackg
+{
+  --background: white;
+  --color: #009CDB;
+  --font-weight: bold;
+}
+
+.greybackg
+{
+  --background: grey;
+  --color: white;
+  --font-weight: bold;
+}
+
+.txtwhite
+{
+  --color: white;
+  color:white;
+}
+
+.bld
+{
+  --font-weight: bold;
+  font-weight: bold;
+}
+
+.txtgrey
+{
+  --color: grey;
+}
+
+.txtpink
+{
+  color: #e2007a;
+  --color: #e2007a;
+}
+
+.eyeset
+{
+    margin-top: auto;
+    margin-bottom: 10px;
+}
+
+.logoheader
+{
+    width: 33%;
+    height: 33%;
+    margin-left: 33%;
+    margin-right: 33%;
+}
+
+.petitmargecadre
+{
+    margin: 5%;
+}
+
+.txtunderline
+{
+    text-decoration: underline;
+}
+
+.m10
+{
+  margin-left:5vw;
+  margin-right:5vw;
+}
+
+.flexjs
+{
+  display:flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.backgcolored
+{
+  background-color: #595858;
+}
+
+.ppanel
+{
+  --background: linear-gradient(#d4145a,#e6007e);
+}
+
+.centered
+{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow-y: scroll;
+  height: 66vmax;
+  padding-top: 5vmax;
+  padding-bottom: 5vmax;
+  padding-left: 5vmin;
+  padding-right: 5vmin;
+  height: 80vmax;
+}
+
+.rounded
+{
+  --border-radius: 25px;
+}

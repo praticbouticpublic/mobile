@@ -1,0 +1,144 @@
+<ion-header class="whitebackg">
+  <ion-toolbar class="whitebackg">
+    <br>
+    <ion-img id="mainlogo" src="assets/img/logo-pratic-boutic.png"></ion-img>
+    <br>
+    <ion-img src="assets/img/timeline-etape-2.png" alt=""></ion-img>
+    <br>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="">
+    @if (!loaded) {
+        <div class="centerflex">
+            <ion-spinner name="crescent"></ion-spinner>
+        </div>
+    }
+    @else
+    {
+        <form [formGroup]="regdetForm" id="registrationdetails-form" novalidate>
+            <ion-img src="assets/img/illustration_3.png" alt="" class="petitmargecadre"></ion-img>
+            <ion-item class="txtcenter txtpink">
+                <ion-label><h1><b>Formulaire d'inscription client</b></h1></ion-label>
+            </ion-item>
+            <ion-list>
+                <ion-item>
+                    <ion-radio-group  formControlName="qualite" id="qualite" name="qualite" autoconmplete="on" (ionChange)="bak('praticboutic_registrationdetails_qualite', regdetForm.value.qualite)">
+                        <div class="flexjs">
+                            <ion-radio labelPlacement="end" slot="start" class="paramfieldc center m10" id="homme" name="homme" value="Monsieur" autoconmplete="on">Monsieur</ion-radio>
+                            <ion-radio labelPlacement="end" slot="start" class="paramfieldc center m10" id="femme" name="femme" value="Madame" autoconmplete="on">Madame</ion-radio>
+                        </div>
+                    </ion-radio-group>
+                </ion-item>
+                @if (isSubmitted && errorControl.qualite.errors?.required)
+                {
+                    <span class="error ion-padding">
+                        La civilité est requise
+                    </span>
+                }
+                <ion-item>
+                    <ion-input formControlName="nom" class="paramfieldc" id="nom" name="nom" type="text" placeholder="Nom" value="" autocomplete="on" (ionChange)="bak('praticboutic_registrationdetails_nom', regdetForm.value.nom)"></ion-input>
+                </ion-item>
+                @if (isSubmitted && errorControl.nom.errors?.required)
+                {
+                    <span class="error ion-padding">
+                        Le nom est requis
+                    </span>
+                }
+                <ion-item>
+                    <ion-input formControlName="prenom" class="paramfieldc" id="prenom" name="prenom" type="text" placeholder="Prénom" value="" autocomplete="on" (ionChange)="bak('praticboutic_registrationdetails_prenom', regdetForm.value.prenom)"></ion-input>
+                </ion-item>
+                @if (isSubmitted && errorControl.prenom.errors?.required)
+                {
+                    <span class="error ion-padding">
+                        Le prénom est requis
+                    </span>
+                }
+                <ion-item>
+                    <ion-input formControlName="adr1" class="paramfieldc" id="adr1" name="adr1" type="text" placeholder="Adresse (ligne 1)" value="" autocomplete="on" (ionChange)="bak('praticboutic_registrationdetails_adresse1', regdetForm.value.adr1)"></ion-input>
+                </ion-item>
+                @if (isSubmitted && errorControl.adr1.errors?.required)
+                {
+                    <span class="error ion-padding">
+                        La ligne d'adresse numéro 1 est requise
+                    </span>
+                }
+                <ion-item>
+                    <ion-input formControlName="adr2" class="paramfieldc" id="adr2" name="adr2" type="text" placeholder="Adresse (ligne 2)" value="" autocomplete="on" (ionChange)="bak('praticboutic_registrationdetails_adresse1', regdetForm.value.adr2)"></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-item>
+                        <ion-input formControlName="cp" class="paramfieldc" id="cp" name="cp" type="text" placeholder="Code Postal" value="" autocomplete="on" (ionChange)="bak('praticboutic_registrationdetails_codepostal', regdetForm.value.cp)"></ion-input>
+                    </ion-item>
+                    @if (isSubmitted && (errorControl.cp.errors?.required || errorControl.cp.errors?.pattern))
+                    {
+                        <span class="error ion-padding">
+                          Un code postal francais est requis
+                        </span>
+                    }
+                    <ion-item>
+                        <ion-input formControlName="ville" class="paramfieldc" id="ville" name="ville" type="text" placeholder="Ville" value="" autocomplete="on" data-reference="praticboutic_registrationdetails_ville" (ionChange)="bak('praticboutic_registrationdetails_codepostal', regdetForm.value.ville)"></ion-input>
+                    </ion-item>
+                    @if (isSubmitted && errorControl.ville.errors?.required)
+                    {
+                        <span class="error ion-padding">
+                            Une ville est requise
+                        </span>
+                    }
+                </ion-item>
+                <ion-item>
+                    <ion-input formControlName="tel" class="paramfieldc" id="tel" name="tel" type="text" placeholder="Téléphone" value=""
+                               title="Il faut un numéro de téléphone français valide" autocomplete="on" data-reference="praticboutic_registrationdetails_telephone" (ionChange)="bak('praticboutic_registrationdetails_telephone', regdetForm.value.tel)">
+                    </ion-input>
+                </ion-item>
+                @if (isSubmitted && (errorControl.tel.errors?.required || errorControl.tel.errors?.pattern))
+                {
+                    <span class="error ion-padding">
+                        Un téléphone français est requis
+                    </span>
+                }
+                <ion-item>
+                    <ion-input formControlName="pass" class="paramfieldc inputeye" id="pass" name="pass" placeholder="Mot de passe" value=""
+                               title="Doit contenir au moins un chiffre, une majuscule, une minuscule, un signe parmi !@#$%&*? et être de au moins 8 caractères"
+                               autocomplete="new-password" [type]="hide ? 'password' : 'text'" data-reference="" (ionChange)="bak('praticboutic_registrationdetails_motdepasse', regdetForm.value.pass)"></ion-input>
+                    <ion-icon id="togglepass" slot="end" [name]="hide ? 'eye-off' : 'eye'" (click)="hide = !hide"></ion-icon>
+                </ion-item>
+                @if (isSubmitted && (errorControl.pass.errors?.required ||errorControl.pass.errors?.pattern))
+                {
+                    <span class="error ion-padding">
+                        Le mot de passe contenant au moins un chiffre, une majuscule, une minuscule, un signe parmi !&#64;#$%&*? et être de au moins 8 caractères est requis
+                    </span>
+                }
+                <ion-item>
+                    <ion-input formControlName="passconf" class="paramfieldc inputeye" id="passconf" name="passconf" placeholder="Mot de passe(confirmation)"
+                               value="" title="Doit contenir au moins un chiffre, une majuscule, une minuscule, un signe parmi !@#$%&*? et être de au moins 8 caractères"
+                               [type]="hide2 ? 'password' : 'text'"></ion-input>
+                    <ion-icon id="togglepassconf" slot="end" [name]="hide2 ? 'eye-off' : 'eye'" (click)="hide2 = !hide2"></ion-icon>
+                </ion-item>
+                @if (isSubmitted && (errorControl.passconf.errors?.required ||errorControl.passconf.errors?.pattern))
+                {
+                    <span class="error ion-padding">
+                        La confirmation du mot de passe contenant au moins un chiffre, une majuscule, une minuscule, un signe parmi !&#64;#$%&*? et être de au moins 8 caractères est requise
+                    </span>
+                }
+            </ion-list>
+        </form>
+    }
+  <br>
+  <ion-row>
+    <ion-col>
+      <ion-button shape="round" type="button" id="validid" class="actionbutton" expand="block" (click)="onSubmit()"><ion-icon name="send-outline"></ion-icon>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CONTINUER</ion-button>
+    </ion-col>
+  </ion-row>
+  <br>
+  <br>
+  <!--<ion-fab vertical="bottom" horizontal="start" slot="fixed">
+    <ion-fab-button class="otherbutton" id="cancelid" (click)="onCancel()">
+      <ion-icon name="close-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>-->
+  <br>
+  <br>
+  <br>
+</ion-content>
+

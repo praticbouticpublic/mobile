@@ -1,0 +1,80 @@
+.cgvstyle
+{
+    text-align: justify; 
+    break-word: inter-word;
+    margin: 10px;
+}
+
+.textright {
+    text-align: right;
+}
+
+.txtcenter
+{
+    text-align: center;
+}
+
+.txtunderline
+{
+    text-decoration: underline;
+}
+
+.actionbutton
+{
+    --background:#009CDB;
+}
+
+.otherbutton
+{
+    --background: white;
+    --border-color: #e2007a;
+    --color: #e2007a;
+}
+
+
+.whitebackg
+{
+  --background: white;
+  --color: #009CDB;
+  --font-weight: bold;
+}
+
+.greybackg
+{
+  --background: grey;
+  --color: white;
+  --font-weight: bold;
+}
+
+.txtwhite
+{
+  --color: white;
+  color:white;
+  --font-weight: bold;
+  font-weight: bold;
+}
+
+.txtgrey
+{
+  --color: grey;
+}
+
+.txtpink
+{
+  color: #e2007a;
+  --color: #e2007a;
+}
+
+.logoheader
+{
+    width: 33%;
+    height: 33%;
+    margin-left: 33%;
+    margin-right: 33%;
+}
+
+
+.petitmargecadre
+{
+    margin: 5%;
+}

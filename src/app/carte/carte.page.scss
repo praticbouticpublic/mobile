@@ -1,0 +1,1282 @@
+
+* {
+  touch-action: manipulation;
+}
+
+*, ::after, ::before {
+    box-sizing: revert !important;
+}
+
+select
+{
+  //font-family: 'Public Sans';
+}
+
+textarea
+{
+  width: 92% !important;
+  height: 50px !important;
+  margin-left: 3% !important;
+  margin-right: 3% !important;
+  margin-top: 3px !important;
+  resize:none !important;
+  //font-family: 'Public Sans' !important;
+  font-size: revert !important;
+}
+
+#infosup
+{
+  width: 92%;
+  margin-left: 3%;
+  margin-right: 3%;
+  height: 50px;
+}
+
+html
+{
+  background-color: white;
+}
+
+.artcel
+{
+  margin: 3% 3% 3% 3%;
+  overflow: auto;
+  line-height: 26px;
+}
+
+.artcelb
+{
+  border: 1px solid lightgrey;
+  border-radius: 8px;
+}
+
+.artqt
+{
+  height: 28px;
+  width: 28px;
+	font-size: 100%;
+	font-weight: bold;
+	margin: 0px;
+	float: left;
+	line-height: 28px;
+	text-align: center;
+}
+
+.artqt:focus
+{
+outline: none;
+}
+
+
+body
+{
+  //font-family: 'Public Sans' !important;
+  font-size: 100%;
+  margin : 0;
+  overflow:hidden;
+  padding-left: 3%;
+  padding-right: 3%;
+  user-select: none; /* supported by Chrome and Opera */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  line-height: unset !important;
+}
+
+@media only screen and (min-width: 640px) {
+  body {
+    margin-right: 80px !important;
+    margin-left: 80px !important;
+  }
+}
+
+@media only screen and (min-width: 960px) {
+  body {
+    margin-right: 240px !important;
+    margin-left: 240px !important;
+  }
+}
+
+@media only screen and (min-width: 1280px) {
+  body {
+    margin-right: 400px !important;
+    margin-left: 400px !important;
+  }
+}
+
+@media only screen and (min-width: 1600px) {
+  body {
+    margin-right: 560px !important;
+    margin-left: 560px !important;
+  }
+}
+
+@media only screen and (min-width: 1920px) {
+  body {
+    margin-right: 720px !important;
+    margin-left: 720px !important;
+  }
+}
+
+@media only screen and (min-width: 2880px) {
+  body {
+    margin-right: 1200px !important;
+    margin-left: 1200px !important;
+  }
+}
+
+@media only screen and (min-width: 3840px) {
+  body {
+    margin-right: 1680px !important;
+    margin-left: 1680px !important;
+  }
+}
+
+  .inpmove {
+    width: 92%;
+    height: 100%;
+    font-size: 112%;
+    margin: 0 auto;
+    text-align: center;
+    padding-top: 2%;
+    padding-bottom: 2%;
+    margin-left: 3%;
+    margin-right: 3%;
+    margin-bottom: 15px;
+    margin-top: 15px;
+  }
+
+.poursuivre
+{
+  margin-bottom: 7px;
+}
+
+.revenir
+{
+  margin-top: 7px;
+}
+
+.accordion {
+  background-color: white;
+  color: #444;
+  cursor: pointer;
+  padding-left: 0px;
+  padding-right: 0;
+  width: 98%;
+  margin-bottom: 10px;
+  text-align: left;
+  outline: none;
+  font-size: 100%;
+  transition: 0.4s;
+  border: none;
+  //font-family: 'Public Sans';
+  border-bottom: 2px solid black;
+  font-weight: bold;
+  display:flex;
+  align-items: center;
+}
+
+.activepb, .accordion:hover {
+  background-color: lightgray;
+  //font-family: 'Public Sans';
+}
+
+.accordion::after {
+	content: "";
+  background: url('./../../assets/img/ajout_au_panier.png') no-repeat 0 0;
+  background-size: 100%;
+  height: 20px;
+  width:20px;
+  color: #777;
+  font-weight: bold;
+  float: right;
+  margin-left: 5px;
+  margin-top: 2px;
+  //font-family: 'Public Sans';
+}
+
+.accordion::before {
+	content: "";
+  background: url('./../../assets/img/fleche_titre_menu_ferme.png') no-repeat 0 0;
+  background-size: 100%;
+  height: 14px;
+  width:9px;
+  color: #777;
+  font-weight: bold;
+  float: left;
+  margin-right: 10px;
+  margin-top: 3px;
+  //font-family: 'Public Sans';
+}
+
+
+.activepb::after {
+	content: "";
+  background: url('./../../assets/img/ajout_au_panier.png') no-repeat 0 0;
+  background-size: 100%;
+  //height: 20px;
+  width:20px;
+  color: #777;
+  font-weight: bold;
+  float: top;
+  margin-left: 5px;
+  margin-top: 2px;
+  //font-family: 'Public Sans';
+
+}
+
+.activepb::before {
+	content: "";
+  background: url('./../../assets/img/fleche_titre_menu_ouvert.png') no-repeat 0 0;
+  background-size: 100%;
+  display:inline-block;
+  height: 12px;
+  width:14px;
+  //font-family: 'Public Sans';
+  margin-top: 4px;
+}
+
+.panel {
+  padding: 0px;
+  background-color: white;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+  border: none;
+  text-align: left;
+  //font-family: 'Public Sans';
+  border-radius: 10px;
+}
+
+.vcentered {
+  margin: 4px;
+  vertical-align:middle;
+}
+
+#main
+{
+  margin: 0 auto;
+  width: 100%;
+  height: auto;
+  overflow-x: hidden;
+}
+
+#finmain
+{
+  margin: 0 auto;
+  width: 100%;
+  overflow-y: scroll;
+
+}
+
+.lcont
+{
+  text-align: left;
+  display: inline-block;
+  font-size: 100%;
+  width: auto;
+  padding: 0px;
+  font-size: 100%;
+  height: 21px;
+  margin-top: 14px;
+  margin-bottom: 4px;
+}
+
+.cont
+{
+  text-align: left;
+  display: inline-block;
+  font-size: 100%;
+  width: auto;
+  border: 0px;
+  padding: 0px;
+  font-size: 100%;
+  height: 21px;
+  margin-top: 9px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  margin-right: 1px;
+  flex: 1 1 auto;
+
+}
+
+.underlined
+{
+	border-bottom: 2px solid lightgrey;
+	display: flex;
+	align-items: center;
+}
+
+.cont:focus
+{
+   outline: none;
+   background-color: lightgray;
+}
+
+.cont:-webkit-autofill,
+.cont:-webkit-autofill:hover,
+.cont:-webkit-autofill:focus,
+.cont:-webkit-autofill:active  {
+    -webkit-box-shadow: 0 0 0 30px white inset !important;
+}
+
+input
+{
+  display:inline-block;
+  font-size: 100%;
+}
+
+
+/* Tabbed example */
+div.tabs {
+  min-height: 7em;		/* No height: can grow if :target doesn't work */
+  position: relative;		/* Establish a containing block */
+  line-height: 1;		/* Easier to calculate with */
+  z-index: 0;		/* So that we can put other things behind */
+  height: 86%;
+  }
+div.tabs > div {
+  display: inline}		/* We want the buttons all on one line */
+div.tabs > div > a {
+  color: black;			/* Looks more like a button than a link */
+  background: #CCC;		/* Active tabs are light gray */
+  padding: 0.2em;		/* Some breathing space */
+  border: 0.1em outset #BBB;	/* Make it look like a button */
+  border-bottom: 0.1em solid #CCC} /* Visually connect tab and tab body */
+div.tabs > div:not(:target) > a {
+  border-bottom: none;		/* Make the bottom border disappear */
+  background: #999}		/* Inactive tabs are dark gray */
+div.tabs > div:target > a,	/* Apply to the targeted item or... */
+:target #tabParam > a {		/* ... to the default item */
+  border-bottom: 0.1em solid #CCC; /* Visually connect tab and tab body */
+  background: #CCC}		/* Active tab is light gray */
+div.tabs > div > div {
+  background: #CCC;		/* Light gray */
+  z-index: -2;			/* Behind, because the borders overlap */
+  left: 0; top: 1.3em;		/* The top needs some calculation... */
+  bottom: 0px;
+  right: 0;		/* Other sides flush with containing block */
+  overflow: auto;		/* Scroll bar if needed */
+  padding: 0.3em;		/* Looks better */
+  border: 0.1em outset #BBB}	/* 3D look */
+div.tabs > div:not(:target) > div { /* Protect CSS1 & CSS2 browsers */
+  position: absolute }		/* All these DIVs overlap */
+div.tabs > div:target > div, :target #tabParam > div {
+  position: absolute;		/* All these DIVs overlap */
+  z-index: -1}			/* Raise it above the others */
+
+ th {
+  border: 1px solid black;
+  border-collapse: collapse;
+  width: auto;
+}
+
+.socialn {
+  margin-left: auto;
+  margin-right: auto;
+  width: 30%;
+  height: 30%;
+  text-align: center;
+  text-decoration: none;
+  margin: 0 auto;
+}
+
+.socialico
+{
+  font-size: 100%;
+  text-decoration: none;
+  margin: 0;
+}
+
+
+html#backhtml
+{
+  height: 100%;
+}
+
+body#backbody
+{
+  margin: 1%;
+  height: 95%;
+}
+
+.bigimg
+{
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  float: none;
+  border-radius: 8px;
+}
+
+.smallimg
+{
+  width: auto;
+  height: auto;
+  max-height: 100%;
+  max-width: 100%;
+  float: right;
+  margin-left: 6px;
+}
+
+#logo
+{
+  width: 100%;
+  height: auto;
+}
+
+#header
+{
+  height: auto;
+  width: 100%;
+  text-align: center;
+ 	padding-top: 5px;
+	padding-bottom: 5px;
+}
+
+#mainlogo
+{
+	display: flex;
+	height: auto;
+	width: 100%;
+	margin-left: auto;
+	margin-right: auto;
+
+}
+
+#footer
+{
+  width: 100%;
+  height: auto;
+  background-color: lightgray;
+  display: flex;
+}
+
+.intercalaire
+{
+  display: inline-block;
+  height: 50px;
+}
+
+.divopt
+{
+ font-size: 90%;
+ text-align: center;
+ margin: 0 auto;
+}
+
+.divopt2
+{
+	display: flex;
+	justify-content: space-evenly;
+  flex-direction: column;
+}
+
+.arrow
+{
+  width: 10%;
+}
+
+.paiement
+{
+  width: auto;
+}
+
+#paye, #met
+{
+  text-align: left;
+  margin: 3% 3% 3% 3%;
+  margin-left: 5%;
+  margin-bottom: 5%;
+}
+
+#cgv
+{
+  text-align: center;
+  margin: 3% 3% 3% 3%;
+}
+
+.paiers
+{
+  width: 13px;
+  margin: 0;
+  margin-top: 18px;
+
+  filter: saturate(0) contrast(100%);
+}
+
+.lblpaiers
+{
+  width: auto;
+  margin-left: 18px;
+  margin-bottom: 0px;
+}
+
+.bts
+{
+  width: auto;
+  font-weight: bold;
+  font-size: 112%;
+  height: 28px;
+  float: left;
+}
+
+.btsnof
+{
+  width: auto;
+  font-weight: bold;
+  font-size: 112%;
+  height: 32px;
+}
+
+.grpbncarte
+{
+  padding-left: 15%;
+  padding-right: 15%;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  height: 25px;
+  width: 100%;
+}
+
+.solobn
+{
+  padding-left: 20%;
+  padding-right: 20%;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  height: 25px;
+  width: 60%;
+  text-align: center;
+}
+
+
+.tot
+{
+  margin-top: 1.5%;
+  margin-bottom: 1.5%;
+  margin-left: 15px;
+  margin-right: auto;
+  padding: 2%;
+  display: inline;
+}
+
+.labtot
+{
+  color:black;
+}
+
+#livraison
+{
+	text-align: center;
+}
+
+.panneau
+{
+	margin: 3% 3% 3% 3%;
+	font-weight: bold;
+	text-align: left;
+}
+
+.spcpandetail
+{
+height: 15px;
+margin:0;
+width: 13px;
+float: left;
+}
+
+.pandetail
+{
+	font-size: 80%;
+	font-weight: normal;
+	margin-left: 18px;
+}
+
+div.nom{
+font-size:100%;
+font-weight: bold;
+//font-family: 'Public Sans';
+padding-left: 6px;
+}
+
+.prix{
+font-size:90%;
+//font-family: 'Public Sans';
+font-weight:bold;
+float:right;
+color:white;
+background-color:#e2007a;
+padding: 3px;
+margin-top: 0px;
+}
+
+.prixsm{
+font-size:90%;
+//font-family: 'Public Sans';
+font-weight:bold;
+float:left;
+color:white;
+background-color:#e2007a;
+padding: 3px;
+margin-left: 6px;
+margin-bottom: 6px;
+}
+
+
+div.desc{
+font-size:90%;
+//font-family: 'Public Sans';
+line-height:20px;
+padding-left: 6px;
+padding-right: 6px;
+text-align: justify;
+}
+
+div.desco{
+font-size:70%;
+//font-family: 'Public Sans';
+line-height:18px;
+padding-left: 6px;
+padding-right: 6px;
+text-align: justify;
+}
+
+
+.navindic
+{
+	border: none;
+	font-weight: bold;
+	border-radius: 5px;
+  width: 48%;
+  height: 35px;
+  margin-right: 0px;
+  margin-left: 0px;
+  font-size: 80%;
+  outline: none;
+}
+
+.soloindic
+{
+    border: none;
+	font-weight: bold;
+	border-radius: 5px;
+  width: 100%;
+  height: 35px;
+  margin-right: 0px;
+  margin-left: 0px;
+  font-size: 80%;
+  text-align: center;
+  outline: none;
+}
+
+#totaliseur
+{
+  margin-top: 25px;
+  margin-bottom: 25px;
+  margin-right: 1%;
+  margin-left: 16.66%;
+}
+
+#retourcarte
+{
+	background-color: lightgray;
+	color: black;
+	float: left;
+	outline: none;
+}
+
+#retourcarte:hover
+{
+	background-color: black;;
+	color: lightgray;
+}
+
+#validcarte
+{
+  margin-top: 25px;
+  margin-bottom: 25px;
+  margin-left: 1%;
+  margin-right: 16.66%;
+}
+
+#validcarte:hover
+{
+	background-color: #e2007a;
+	color: black;
+	float: right;
+}
+
+#recommander
+{
+	background-color: black;
+	color: white;
+	float: right;
+	outline: none;
+}
+
+#recommander:hover
+{
+	background-color: #e2007a;
+	color: black;
+	float: right;
+}
+
+.gco
+{
+	height: auto;
+	float: left;
+}
+
+.dro
+{
+	height: 100%;
+	overflow: hidden;
+	text-align: center;
+	vertical-align: middle;
+}
+
+.prixo
+{
+	color: #e2007a;
+	margin: 0;
+	text-align: center;
+	font-weight: bold;
+	display: block;
+	font-size: 80%;
+}
+
+.tdart
+{
+	padding: 2%;
+	padding-left: 0%;
+	width: 72%;
+	border: 0px solid black;
+}
+
+.tdp
+{
+	text-align: center;
+	vertical-align: middle;
+  color: #e2007a;
+
+}
+
+.qte, .sli
+{
+	font-size: 100%;
+	font-weight: bold;
+	width: auto;
+	margin: 0px;
+	float: left;
+	line-height: 28px;
+}
+
+.lblcgv
+{
+	color : #e2007a;
+	font-size: 80%;
+	font-weight: normal;
+}
+
+#fraislivrid
+{
+	text-align: center;
+}
+
+.vctrqte
+{
+	height: 28px;
+	line-height: 28px;
+	white-space: nowrap;
+	padding: 6px;
+}
+
+.slidepb
+{
+	height: 28px;
+	line-height: 28px;
+	white-space: nowrap;
+	padding-left: 6px;
+	padding-bottom: 6px;
+	display: flex;
+	align-content: center;
+	justify-content: center;
+}
+
+
+.acenter
+{
+	text-align: center;
+	line-height: 36px;
+}
+
+.cursor
+{
+	margin-left: 3px;
+	margin-right: 3px;
+	width: 12px;
+}
+
+.fsub
+{
+	display: flex;
+	align-items: center;
+  justify-content: center;
+  flex: 0 0 100%;
+  flex-flow: column wrap;
+}
+
+.vert-center {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 56px;
+	width: 56px;
+	border: 3px solid #e2007a;
+	margin: auto;
+}
+
+.vert-center p {
+	color: #e2007a;
+	text-align: center;
+}
+
+.divopttab
+{
+	display: flex;
+	justify-content: space-evenly;
+	flex-wrap: wrap;
+}
+
+.rowob
+{
+	display: flex;
+	flex-flow: row wrap;
+}
+
+.rowob:after
+{
+	content: "";
+  display: table;
+  clear: both;
+}
+
+.colart
+{
+    float: left;
+    width: 70%;
+}
+
+.colval
+{
+    float: left;
+    width: 30%;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+
+.rowah
+{
+	display: flex;
+	flex-flow: row-wrap;
+}
+
+.rowah:after
+{
+	content: "";
+  display: table;
+  clear: both;
+}
+
+.cola1
+{
+    float: left;
+    width: 60%;
+}
+
+.cola2
+{
+    float: left;
+    width: 40%;
+}
+
+.colb1
+{
+    float: left;
+    width: 60%;
+}
+
+.colb2
+{
+    float: left;
+    width: 40%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.separation
+{
+	height: 2px;
+	width: 100%;
+	background-color: lightgrey;
+	border-style: none;
+}
+
+.btnhcmd {
+  background: black;
+  color: #ffffff;
+  //font-family: 'Public Sans';
+  border-radius: 8px;
+  border: 0;
+  padding: 12px 16px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  display: block;
+  transition: all 0.2s ease;
+  box-shadow: 0px 4px 5.5px 0px rgba(0, 0, 0, 0.07);
+  display: inline;
+}
+
+.btnhcmd:hover:enabled {
+	background-color: #e2007a;
+  filter: contrast(115%);
+  outline: none;
+}
+
+.btnhcmd:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.marque
+{
+  font-size: 300%;
+  text-align: center;
+  word-break: break-word;
+}
+
+.grecaptcha-badge
+{
+  visibility: hidden;
+}
+
+.modal-body-cb
+{
+  justify-content: space-evenly;
+  display: flex;
+  height: 100px;
+  flex-flow: column;
+  align-items: center;
+	background-color: #595858;
+	color: white;
+	border-top: 0px !important;
+	border-bottom: 0px !important;
+}
+
+.modal-footer-mainmenu
+{
+	background-color: #595858;
+	color: white;
+	display: flex;
+	flex-flow: column;
+	justify-content: space-evenly;
+	align-items: center;
+	height: 170px;
+}
+
+
+.modal-footer-cb
+{
+	background-color: #595858;
+	color: white;
+	/*border-top: 0px !important;
+	width: 100%;*/
+	display: flex;
+	flex-flow: column;
+	justify-content: space-evenly;
+	align-items: center;
+	height: 100px;
+}
+
+.modal-mainmenu
+{
+  background-color: transparent !important;
+  /*top: 2.5% !important;*/
+  top: 10.36vw !important;
+  bottom: 6.29vw !important;
+}
+
+.modal-header-mainmenu
+{
+  height: 150px;
+}
+
+.modal-content-mainmenu
+{
+  border-radius: 25px !important;
+  padding-top: 30px !important;
+  padding-bottom: 30px !important;
+  /*width: 90% !important;*/
+  padding-left: 65px !important;
+  padding-right: 65px !important;
+  /*margin-left: auto;
+  margin-right: auto;*/
+  background-color: #595858 !important;
+}
+
+.modal-body-mainmenu
+{
+  justify-content: space-evenly;
+  display: flex;
+  height: 145px;
+  flex-flow: column;
+  align-items: center;
+}
+
+.modal-dialog-mainmenu
+{
+  margin-left: 20% !important;
+}
+
+.modal-dialog-reg
+{
+  margin-left: 50% !important;
+}
+
+.modal-mainmenu
+{
+  background-color: transparent !important;
+  /*top: 2.5% !important;*/
+  top: 10.36vw !important;
+  bottom: 6.29vw !important;
+}
+
+.modal-header-cb
+{
+  height: 100px;
+	background-color: #595858;
+	color: white;
+	border-bottom: 0px !important;
+  margin-left: auto;
+	margin-right: auto;
+  flex-flow: column;
+  align-items: center;
+  display: flex;
+  flex-flow: column;
+  justify-content: space-evenly;
+  flex-direction: column;
+}
+
+.modal-body-cb
+{
+  justify-content: space-evenly;
+  display: flex;
+  height: 100px;
+  flex-flow: column;
+  align-items: center;
+  background-color: #595858;
+  color: white;
+  border-top: 0px !important;
+  border-bottom: 0px !important;
+}
+
+.flcentered
+{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50%
+}
+
+.nospmd
+{
+  top: 50vh !important;
+  position: relative !important;
+}
+
+.spv
+{
+  height: 50vh;
+}
+
+label
+{
+  margin-bottom: 0 !important;
+}
+
+a
+{
+  color: unset !important;
+  text-decoration: none !important;
+  background-color: unset !important;
+}
+
+#cgvlink
+{
+  color: #009CDB !important;
+  text-decoration: underline;
+}
+
+.scrollablev
+{
+  overflow-y: scroll;
+}
+
+.centerflex
+{
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
+.bigspinner {
+    transform: scale(3);
+    color:#009CDB;
+}
+
+#picker
+{
+    margin-top: 10px;
+    margin-left: 33%;
+    margin-right: 33%;
+}
+
+ion-select.in-item {
+    max-width: 100% !important;
+}
+
+.actionbutton
+{
+    --background:#009CDB;
+}
+
+.otherbutton
+{
+    --background: white;
+    --border-color: #e2007a;
+    --color: #e2007a;
+}
+
+.picsum-img-wrapper
+{
+    display: flex;
+    justify-content: center;
+}
+
+#favoriid
+{
+    z-index: 2;
+    position: absolute;
+    top: 5px;
+    right: 7px;
+    height: 20px;
+    width: 20px;
+}
+
+.imgclose
+{
+    z-index: 2;
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    height: 20px;
+    width: 20px;
+}
+
+.fullwidth
+{
+  width: 100%;
+}
+
+
+a.msg {
+    text-decoration: none;
+    color: #6E052E;
+}
+
+#barre {
+    color: black;
+    width: 100%;
+    background: lightgrey;
+    /* pour ne pas être masqué par la barre iOS */
+    padding: 12px 0 env(safe-area-inset-bottom);
+    text-align: center;
+    font-size: 14px;
+
+    position: fixed;  /* FIXE en bas de l'écran */
+    left: 0;
+    bottom: 0;
+
+    z-index: 1000;    /* au-dessus des autres éléments */
+    margin-top: 0;    /* supprime le margin négatif */
+    user-select: none;
+}
+
+#fermer {
+    background: url('./../../assets/img/fermer.png');
+    width: 18px;
+    height:18px;
+    display: block;
+    cursor: pointer;
+    float:right;
+    margin-right:30px;
+}
+
+#fermer:hover {
+  background: url('./../../assets/img/fermer2.png');
+}
+
+.marque
+{
+  font-size: 300%;
+  text-align: center;
+  word-break: break-word;
+}
+
+.spincenter
+{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  height: 50%;
+}
+
+.nice
+{
+  --background: white;
+  --border-color: #e2007a;
+  --color: #e2007a;
+  background-color: #e2007a;
+  color: #e2007a;
+}
+
+.ripplenice
+{
+  color: #e2007a !important;
+  --ripple-color: #e2007a !important;
+}
+
+.no-ripple {
+  --ripple-color: transparent;
+}
+
+.rowah {
+    display: flex;
+    flex-direction: row;
+    align-items: center;  /* évite que colb2 s'étire verticalement */
+    justify-content: space-between;
+}
+
+.vctrqte {
+    display: flex;
+    flex-direction: row;
+    align-items: center;  /* centre verticalement les enfants */
+    gap: 8px;
+}

@@ -1,0 +1,21 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title class="viewfull">{{ myTitle }}</ion-title>
+    </ion-toolbar>
+</ion-header>
+<ion-content>
+    @if (!loading) {
+        <app-displaytable [table]="soustable" [selcol]="selcol" [selid]="selid"></app-displaytable>
+    }
+    <br>
+    <br>
+    <br>
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+        <ion-fab-button class="actionbutton" (click)="goToInsertPage(soustable, selcol, selid)">
+            <ion-icon name="add"></ion-icon>
+        </ion-fab-button>
+    </ion-fab>
+</ion-content>

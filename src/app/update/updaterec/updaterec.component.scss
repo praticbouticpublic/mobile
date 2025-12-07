@@ -1,0 +1,40 @@
+.centerflex
+{
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
+.bigspinner {
+    transform: scale(3);
+}
+
+#picker
+{
+    margin-top: 10px;
+    margin-left: 33%;
+    margin-right: 33%;
+}
+
+ion-select.in-item {
+    max-width: 100% !important;
+}
+
+.actionbutton
+{
+    --background:#009CDB;
+}
+
+.otherbutton
+{
+    --background: white;
+    --border-color: #e2007a;
+    --color: #e2007a;
+}
+
+.viewfull
+{
+    width: auto;
+}

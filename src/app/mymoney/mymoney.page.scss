@@ -1,0 +1,17 @@
+.centerflex
+{
+    justify-content: center;
+    display: flex; 
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
+ion-spinner {
+    transform: scale(3);
+}
+
+.actioncolor
+{
+    --color:#009CDB;
+}

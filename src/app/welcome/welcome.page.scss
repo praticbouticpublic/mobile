@@ -1,0 +1,161 @@
+.tile
+{
+  //background-image: url('../../../../assets/img/tile.jpg');
+  background-size: 40%;
+  background-repeat: repeat;
+  //height: 100%;
+  //width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.example-form {
+  height: auto;
+}
+
+.commercant {
+  height: 10vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.example-full-width {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.flexcenter
+{
+  height: 10vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.matacsize
+{
+  width: 33vw;;
+}
+
+h1,
+h5,
+p {
+  font-weight: 600;
+  word-break: break-all;
+  font-family: 'Courier New', Courier, monospace;
+}
+div {
+  text-align: center;
+  background: #fdfdfd;
+
+  button {
+    border-radius: 50%;
+    height: 60px;
+    width: 60px;
+    margin: 4px;
+    &disabled {
+      cursor: no-drop;
+    }
+  }
+
+  .data {
+    background: antiquewhite;
+    border-radius: 5px;
+  }
+}
+
+.origin-overlay {
+  .qrcode-tooltip {
+    .qrcode-tooltip-temp{
+      padding: min(5px) !important;
+    }
+  }
+}
+
+.scrollable{
+  max-height: 100vmin;
+  overflow-y: scroll;
+  border: 1px solid black;
+}
+
+.listitem
+{
+  width: 100%;
+}
+
+.nice
+{
+  --background:  #e2007a;
+}
+
+.bordernice
+{
+    --border-color: #e2007a;
+    --color: #e2007a;
+    --placeholder-color: #e2007a;
+}
+
+.spaced
+{
+  margin:25px;
+  width:200%!important;
+  height:200%!important;
+}
+
+ion-fab-button
+{
+  --background:#009CDB;
+}
+
+#barre {
+    color: black;
+    width: 100%;
+    background: lightgrey;
+    /* espace sous la barre iOS */
+    padding: 12px 0 env(safe-area-inset-bottom);
+    text-align: center;
+    font-size: 14px;
+
+    position: fixed;
+    left: 0;
+    bottom: 0;
+
+    z-index: 1000; /* bien au-dessus des autres */
+    margin-top: 0; /* supprimer le margin négatif */
+    user-select: none; /* facultatif, éviter sélection texte */
+}
+
+#fermer {
+  background: url('./../../assets/img/fermer.png');
+  width: 18px;
+  height:18px;
+  display: block;
+  cursor: pointer;
+  float:right;
+  margin-right:30px;
+}
+
+#fermer:hover {
+  background: url('./../../assets/img/fermer2.png');
+}
+
+.centered
+{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Supprime le carré iOS devant les options du select */
+ion-select-option {
+    list-style: none !important;  /* supprime les puces/checkbox */
+    -webkit-appearance: none !important;
+    appearance: none !important;
+    padding-left: 0 !important;  /* enlève l’espace réservé au carré */
+}

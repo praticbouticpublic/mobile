@@ -1,0 +1,136 @@
+.centerflex
+{
+  justify-content: center;
+  display: flex; 
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+
+ion-spinner {
+  transform: scale(3);
+  color:white;
+}
+
+.eyeset
+{
+  margin-top: auto;
+  margin-bottom: 10px;
+}
+
+.attention
+{
+  background-color: red;
+  color: white;
+  line-height: 300%;
+  text-align: center;
+}
+
+.logoheader
+{
+  width: auto;
+  height: auto;
+  margin-left: 33%;
+  margin-right: 33%;
+}
+
+.txtcenter
+{
+  text-align: center;
+}
+
+.actionbutton
+{
+  --font-weight: bold;
+  --background:#009CDB;
+}
+
+.otherbutton
+{
+  --background: white;
+  --border-color: #e2007a;
+  --color: #e2007a;
+}
+
+.whitebackg
+{
+  --background: white;
+  --color: #009CDB;
+  --font-weight: bold;
+}
+
+.greybackg
+{
+  --background: grey;
+  --color: white;
+  --font-weight: bold;
+}
+
+.txtwhite
+{
+  --color: white;
+  color:white;
+}
+
+.bld
+{
+  --font-weight: bold;
+  font-weight: bold;
+}
+
+.txtgrey
+{
+  --color: grey;
+}
+
+.txtunderline
+{
+  text-decoration: underline;
+}
+
+.actionalert
+{
+  --ion-color: #009CDB !important;
+}
+
+.noactionalert
+{
+  --ion-color: black !important;
+}
+
+button.alert-button.alert-button-confirm {
+  color: var(--ion-color-primary);
+}
+
+button.alert-button.alert-button-cancel {
+  color: var(--ion-color-medium);
+}
+
+.gsbl
+{
+  color: var(--ion-color-primary);
+}
+
+.ppanel
+{
+  --background: linear-gradient(#d4145a,#e6007e);
+}
+
+.centered
+{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow-y: scroll;
+  height: 66vmax;
+  padding-top: 5vmax;
+  padding-bottom: 5vmax;
+  padding-left: 5vmin;
+  padding-right: 5vmin;
+  height: 80vmax;
+}
+
+.rounded
+{
+  --border-radius: 25px;
+}

@@ -1,0 +1,97 @@
+.centerflex
+{
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
+ion-spinner {
+    transform: scale(3);
+}
+
+.actioncolor
+{
+    --color:#009CDB;
+}
+
+.flexwrap {
+    display:flex;
+    flex-wrap: wrap;
+}
+
+.actionbutton
+{
+    --background:#009CDB;
+}
+
+.headertitle
+{
+border:hidden;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+
+.relief
+{
+    border-width: thin;
+    border-color: black;
+    border-style: inset;
+    //box-shadow: 2.5px 5px 4px #888888;
+    border-bottom: hidden;
+    border-left: hidden;
+    border-right: hidden;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.longtab
+{
+  width: 95vw;
+}
+
+
+.otherbutton
+{
+    --background: white;
+    --border-color: #e2007a;
+    --color: #e2007a;
+}
+
+.overflownorm
+{
+    overflow: inherit;
+}
+
+.fullheight
+{
+  height: 100%;
+}
+
+ion-select
+{
+  --background: white;
+  --border-color: #e2007a;
+  --color: #e2007a;
+  color:#e2007a;
+  background-color: white;
+  border: #e2007a;
+  height: 60px;
+}
+
+ul .pagination
+{
+  display: flex;
+  flex-flow: row wrap;
+}
+
+
+
+
+
+
+
+
+

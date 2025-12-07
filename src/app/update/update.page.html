@@ -1,0 +1,18 @@
+@if (loading === false) {
+    <ion-tabs>
+        <!--@if (sstable ==='o') {-->
+        <ion-tab-bar slot="bottom">
+            <ion-tab-button tab="updaterec">
+            <!--<ion-tab-button tab="updaterecord/{{ table }}/{{ id }}/none/0">-->
+                <ion-icon name="pencil-outline"></ion-icon>
+                <ion-label>Mise à jour</ion-label>
+            </ion-tab-button>
+            <ion-tab-button tab="soustable">
+            <!--<ion-tab-button tab="displaytable/{{ sstablenom }}/{{ ssselcol }}/{{ ssid }}">-->
+                <ion-icon name="link-outline"></ion-icon>
+                <ion-label>Sous-table</ion-label>
+            </ion-tab-button>
+        </ion-tab-bar>
+        <!--}-->
+    </ion-tabs> }
+

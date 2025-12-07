@@ -1,0 +1,135 @@
+<ion-card [routerLink]="['/admin/welcome']" [hidden]="loadingState">
+    <ion-img id="mainlogo" src="assets/img/logo-pratic-boutic.png"></ion-img>
+    <ion-toolbar>
+        <ion-title>Informations Client</ion-title>
+    </ion-toolbar>
+</ion-card>
+<ion-content style="height:80vh">
+    <form [formGroup]="getinfoFormGroup" name="mainform">
+        <div id="main">
+
+            @if (loadingState) {
+                <div class="spincenter">
+                    <ion-spinner id="spinimgid" class="bigspinner"></ion-spinner>
+                </div>
+            }
+            @else
+            {
+                @if (logo !== undefined) {
+                    <img id="logo" [src]="srvroot + 'upload/' + logo" [hidden]="!logo" alt="">
+                    <p id="marqueid" class="marque" [hidden]="logo">{{ nom }}</p>
+                }
+
+                    <div id="grpinfo" [style.display]="(method > 0) ? 'block' : 'none'">
+                        <ion-item lines="none" class="fullwidth" id="blocnomid" [style.display]="(method > 2) ? 'flex' : 'none'">
+                            <ion-input label="Nom :"
+                                       formControlName="clnom"
+                                       id="lenom"
+                                       [maxlength]="60"
+                                       [required]
+                                       errorText="Un nom est requis"/>
+                        </ion-item>
+                    </div>
+
+                    <ion-item lines="none" class="fullwidth" id="blocprenomid" [style.display]="(this.method > 2) ? 'flex' : 'none'">
+                          <ion-input label="Pr&eacute;nom&nbsp;:&nbsp;" formControlName="clprenom" class="" id="leprenom" name="prenom" [maxlength]="60" [required] errorText="Un prénom est requis"/>
+                    </ion-item>
+                    <ion-item lines="none" class="fullwidth">
+                        <ion-input label="T&eacute;l.&nbsp;Portable&nbsp;:&nbsp;" formControlName="cltel" class="" id="letel" name="tel" autocomplete="tel" [maxlength]="60" [required]
+                                   pattern="^(?:0|\(?\+33\)?\s?|0033\s?)[6-7](?:[\.\-\s]?\d\d){4}$"
+                                   title="Il faut un numéro de téléphone portable français valide" errorText="Il faut un numéro de téléphone portable français valide" />
+                        </ion-item>
+                        <div class="panneau" id="met" [style.display]="(this.method > 2) ? 'block' : 'none'">
+                            <div id="model" class="w80">
+                                <ion-radio-group formControlName="vente" (ionChange)="this.onModelChange($event)">
+                                    <div id="blemporter" [style.display]="(this.chm === 'TOUS' ||this.chm === 'EMPORTER') ? 'block' : 'none'">
+                                        <ion-radio [ngClass]="'souligner'" [style.display]="(this.chm === 'TOUS') ? 'inline-block' : 'none'" class="paiers" name="choixmeth" id="lemporter" value="EMPORTER" >Je viens récupérer ma commande</ion-radio>
+                                        <ion-label [ngClass]="'souligner'" [style.display]="(this.chm === 'EMPORTER') ? 'inline-block' : 'none'">Je viens récupérer ma commande</ion-label>
+                                    </div>
+                                    <div class="spcpandetail" id="spdemporter" [style.display]="(this.chm === 'TOUS' ||this.chm === 'EMPORTER') ? 'block' : 'none'"></div>
+                                    <ion-label class="pandetail" id="pdemporter" [style.display]="(this.chm === 'TOUS' ||this.chm === 'EMPORTER') ? 'inline-block' : 'none'">{{ this.cmemp }}</ion-label>
+                                    <div id="bllivrer" [style.display]="(this.chm === 'TOUS' ||this.chm === 'LIVRER') ? 'block' : 'none'">
+                                        <ion-radio [ngClass]="'souligner'" [style.display]="(this.chm === 'TOUS') ? 'inline-block' : 'none'" class="paiers" name="choixmeth" id="llivrer" value="LIVRER">Je me fais livrer</ion-radio>
+                                        <ion-label [ngClass]="'souligner'" [style.display]="(this.chm === 'LIVRER') ? 'inline-block' : 'none'">Je me fais livrer</ion-label>
+                                    </div>
+                                    <div class="spcpandetail" id="spdlivrer" [style.display]="(this.chm === 'TOUS' ||this.chm === 'LIVRER') ? 'block' : 'none'"></div>
+                                    <ion-label class="pandetail" id="pdlivrer" [style.display]="(this.chm === 'TOUS' ||this.chm === 'LIVRER') ? 'inline-block' : 'none'">{{ this.cmlivr }}</ion-label>
+                                </ion-radio-group>
+                            </div>
+                        </div>
+                        <div id="adrlivr" formGroupName="adrlivr" [hidden]="!this.showadrlivr">
+                            <ion-item lines="none" class="fullwidth">
+                                <ion-input label="Adresse&nbsp;1&nbsp;:&nbsp;" formControlName="ligne1" class="adrliv" id="ladresse1" name="adresse1" [maxlength]="150" [required] errorText="Une ligne d'adresse est requise" />
+                            </ion-item>
+                            <ion-item class="fullwidth">
+                                <ion-input label="Adresse&nbsp;2&nbsp;:&nbsp;" formControlName="ligne2" class="adrliv" id="ladresse2" name="adresse2" [maxlength]="150" />
+                            </ion-item>
+                            <ion-item lines="none" class="fullwidth">
+                            <ion-input label="Code&nbsp;Postal&nbsp;:&nbsp;" formControlName="codepostal" class="adrliv" id="lecp" name="cp" [maxlength]="5" [required]
+                                       pattern="[0-9]{5}" title="Il faut un code postal français valide" (keyup)="this.checkcp()" errorText="Il faut un code postal à cinq chiffres" />
+                            </ion-item>
+                            <ion-item lines="none" class="fullwidth">
+                                <ion-input label="Ville&nbsp;:&nbsp;" formControlName="ville" class="adrliv" id="laville" name="ville" [maxlength]="50" [required] errorText="Une ville est requise" />
+                            </ion-item>
+                            @if (this.frais !== null)
+                            {
+                                <div class="panneau" id="fraislivrid" #fraislivr>Frais&nbsp;de&nbsp;livraison&nbsp;:&nbsp;{{ this.frais | number : '1.2-2' }}&nbsp;€</div>
+                            }
+                        </div>
+                        <hr id="separationid" class="separation" [style.display]="(this.method > 0) ? 'block' : 'none'">
+                        <div class="panneau" id="paye" [style.display]="(this.method > 2) ? 'block' : 'none'">
+                            <div id="modep" class="w80">
+                                <ion-radio-group formControlName="paiement">
+                                    <div id="blcomptant" [style.display]="(this.chp === 'TOUS' ||this.chp === 'COMPTANT') ? 'block' : 'none'">
+                                        <ion-radio [ngClass]="'souligner'" [style.display]="(this.chp === 'TOUS') ? 'inline-block' : 'none'" class="paiers" name="choixpaie" id="pcomptant" value="COMPTANT">Je&nbsp;paye&nbsp;en&nbsp;ligne&nbsp;</ion-radio><br>
+                                        <ion-label [ngClass]="'souligner'" [style.display]="(this.chp === 'COMPTANT') ? 'inline-block' : 'none'" class="paiers">Je&nbsp;paye&nbsp;en&nbsp;ligne&nbsp;</ion-label>
+                                    </div>
+                                    <div class="spcpandetail" id="spdcomptant" [style.display]="(this.chp === 'TOUS' ||this.chp === 'COMPTANT') ? 'block' : 'none'"></div>
+                                        <ion-label class="pandetail"  id="pdcomptant" [style.display]="(this.chp === 'TOUS' ||this.chp === 'COMPTANT') ? 'inline-block' : 'none'">{{ this.cmpt }}</ion-label>
+                                    <div id="bllivraison" [style.display]="(this.chp === 'TOUS' ||this.chp === 'LIVRAISON') ? 'block' : 'none'">
+                                        <ion-radio [ngClass]="'souligner'" [style.display]="(this.chp === 'TOUS') ? 'inline-block' : 'none'" class="paiers" name="choixpaie" id="plivraison" value="LIVRAISON">Je&nbsp;paye&nbsp;à&nbsp;la&nbsp;livraison&nbsp;</ion-radio>
+                                        <ion-label [ngClass]="'souligner'" [style.display]="(this.chp === 'LIVRAISON') ? 'inline-block' : 'none'" class="paiers">Je&nbsp;paye&nbsp;à&nbsp;la&nbsp;livraison&nbsp;</ion-label>
+                                    </div>
+                                    <div class="spcpandetail" id="spdlivraison" [style.display]="(this.chp === 'TOUS' ||this.chp === 'LIVRAISON') ? 'block' : 'none'"></div>
+                                        <ion-label class="pandetail" id="pdlivraison" [style.display]="(this.chp === 'TOUS' ||this.chp === 'LIVRAISON') ? 'inline-block' : 'none'">{{ this.livr }}</ion-label>
+                                </ion-radio-group>
+                          </div>
+                        </div>
+                        <ion-item lines="none" class="fullwidth">
+                            <ion-input label="Code Promo.&nbsp;:&nbsp;" formControlName="codepromo" class="" id="lecodepromo" name="codepromo" [maxlength]="8" pattern="[0-9A-Z]{8}" (keyup)="this.getRemise()" errorText="Le code Promo. doit contenir 8 chiffres/majuscules" />
+                        </ion-item>
+                        @if (this.rem !== null)
+                        {
+                            <div class="panneau" id="remiseid" #remise >Montant de la remise : {{ this.rem | number : '1.2-2' }} €</div>
+                        }
+                        <ion-item lines="none">
+                            <ion-checkbox labelPlacement="end" slot="start" formControlName="cgv" id="chkcgv" name="okcgv" value="valcgv">J'accepte <a id="cgvlink" (click)="this.gotoCGV()">les conditions générales de vente</a></ion-checkbox>
+                        </ion-item>
+                        <br>
+                        <ion-item class="fullwidth">
+                            <ion-textarea formControlName="infosup" id="infosup" name="infosup" placeholder="Informations supplémentaires (date, heure, code interphone, ...)" [maxlength]="300"></ion-textarea>
+                        </ion-item>
+            }
+            </div>
+    </form>
+</ion-content>
+
+<ion-footer id="footer" [hidden]="loadingState">
+    <form (submit)="onSubmit()">
+        <div id="grpbnid" class="grpbn" [style.display]="(method > 0) ? 'flex' : 'none'">
+            <ion-button fill="outline" color="dark" id="retourcarte" class="navindic ripplenice" type="button" (click)="Retour()">Retour</ion-button>
+            <ion-button color="dark" id="validcarte" class="navindic ripplenice" type="submit">Valider</ion-button>
+        </div>
+    </form>
+
+    @if (getShowBarre()) {
+        <div id="barre">
+            Ce site utilise des cookies
+            <div id="fermer" (mousedown)="setShowBarre(true)"></div>
+        </div>
+    }
+</ion-footer>
+
+
+
+

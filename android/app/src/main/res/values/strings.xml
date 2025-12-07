@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Praticboutic</string>
+    <string name="title_activity_main">Praticboutic</string>
+    <string name="package_name">io.praticboutic.merchant</string>
+    <string name="custom_url_scheme">io.praticboutic.merchant</string>
+    <string name="server_client_id">50443410557-13msq51mbn9se9875790c72he6ec1uk3.apps.googleusercontent.com</string>
+    <string name="asset_statements" translatable="false">[{ \"include\": \"https://dev.praticboutic.fr/.well-known/assetlinks.json\" }]</string>
+    <string name="default_notification_channel_id">Channel ID</string>
+</resources>

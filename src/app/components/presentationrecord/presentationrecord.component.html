@@ -1,0 +1,260 @@
+<div>
+    @if (loading)
+    {
+        <div class="centerflex">
+            <ion-spinner class="bigspinner" name="crescent"></ion-spinner>
+        </div>
+    }
+    <div id="main">
+        <div id="act">
+            @if (!loading)
+            {
+                <form [formGroup]="form" (submit)="onSubmitAction($event, action)" style="display:block">
+                    @for (champ of champs; track champ.nom; let i = $index)
+                    {
+                        <div>
+                            @if (action !== 'view')
+                            {
+                                @if ((champ.typ !== 'pk') && (champ.nom !== selcol) && (champ.typ !== 'image') && (champ.nom !== 'statid'))
+                                {
+
+                                        @switch ( champ.typ)
+                                        {
+                                            @case('text')
+                                            {
+                                                <ion-item>
+                                                <ion-input [label]="champ.desc + '&nbsp;:&nbsp;'" label-placement="fixed" name="table{{numtable}}_{{champ.nom}}" id="table{{numtable}}_inp{{i}}"
+                                                    (ionChange)="onInputChange($event, champ, i)" [formControlName]="i"></ion-input>
+                                                </ion-item>
+
+                                            }
+                                            @case('ref')
+                                            {
+                                                <ion-item>
+                                                <ion-input [label]="champ.desc + '&nbsp;:&nbsp;'" label-placement="fixed" name="table{{numtable}}_{{champ.nom}}" id="table{{numtable}}_inp{{i}}"
+                                                    [required]="true" (ionChange)="onInputChange($event, champ, i)" [formControlName]="i"></ion-input>
+                                                </ion-item>
+
+                                                @if ((isSubmitted) && (errorControlfield(i.toString()).errors?.required))
+                                                {
+                                                    <span class="error ion-padding">Ce champ est requis</span>
+                                                }
+
+                                            }
+                                            @case('bool')
+                                            {
+                                                @if (champ.typ !=='fk')
+                                                {
+                                                    <ion-item>
+                                                    <ion-checkbox name="table{{numtable}}_{{champ.nom}}" id="table{{numtable}}_inp{{i}}"
+                                                              [required]="true" class="mbchk" (ionChange)="onInputChange($event, champ, i)" [formControlName]="i" labelPlacement="start">{{ champ.desc }}&nbsp;:&nbsp;</ion-checkbox>
+                                                    </ion-item>
+                                                }
+                                            }
+                                            @case('prix')
+                                            {
+                                                <ion-item>
+                                                <ion-input [label]="champ.desc + '&nbsp;:&nbsp;'" label-placement="fixed" name="table{{numtable}}_{{champ.nom}}" id="table{{numtable}}_inp{{i}}"
+                                                   type="number" [required]="true" step="0.01"
+                                                   min="0" title="Doit être un nombre positif avec 2 chiffres après la virgule"
+                                                   (ionChange)="onInputChange($event, champ, i)" [formControlName]="i"></ion-input>
+                                                </ion-item>
+
+                                            }
+                                            @case('percent')
+                                            {
+                                                <ion-item>
+                                                <ion-input [label]="champ.desc + '&nbsp;:&nbsp;'" label-placement="fixed" name="table{{numtable}}_{{champ.nom}}" id="table{{numtable}}_inp{{i}}"
+                                                   type="number" [required]="true"
+                                                   min="0" title="Doit être un nombre positif" (ionChange)="onInputChange($event, champ, i)" [formControlName]="i"></ion-input><ion-label>%</ion-label>
+                                                </ion-item>
+
+                                            }
+                                            @case('pass')
+                                            {
+                                                <ion-item>
+                                                <ion-input [label]="champ.desc + '&nbsp;:&nbsp;'" label-placement="fixed" id="table{{numtable}}_inp{{i}}" name="table{{numtable}}_{{champ.nom}}" type="password" pattern="(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%&*?]).{8,}"
+                                                   title="Le mot de passe doit contenir au moins un chiffre, une majuscule, une minuscule, un signe parmi !@#$%&*? et être de au moins 8 caractères"
+                                                   [required]="true" autocomplete="new-password" (ionChange)="onInputChange($event, champ, i)" [formControlName]="i"></ion-input>
+                                                </ion-item>
+                                                @if ((isSubmitted) && (errorControlfield(i.toString()).errors?.required || errorControlfield(i.toString()).errors?.pattern))
+                                                {
+                                                    <span class = "error ion-padding">Le mot de passe doit contenir au moins un chiffre, une majuscule, une minuscule, un signe parmi ! &#64;#$ % & * ? et être de au moins 8 caractères</span>
+                                                }
+
+                                            }
+                                            @case('email')
+                                            {
+                                                <ion-item>
+                                                <ion-input [label]="champ.desc + '&nbsp;:&nbsp;'" label-placement="fixed" id="table{{numtable}}_inp{{i}}" name="table{{numtable}}_{{champ.nom}}" type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                                                    title="Le courriel doit valide" [required]="true" (ionChange)="onInputChange($event, champ, i)" [formControlName]="i"></ion-input>
+                                                </ion-item>
+
+                                                @if ((isSubmitted) && (errorControlfield(i.toString()).errors?.required || errorControlfield(i.toString()).errors?.pattern))
+                                                {
+                                                    <span class="error ion-padding">Un email valide est requis. Il doit être de la forme user&#64;domain.ext</span>
+                                                }
+
+                                            }
+                                            @case('codepostal')
+                                            {
+                                                <ion-item>
+                                                <ion-input [label]="champ.desc + '&nbsp;:&nbsp;'" label-placement="fixed" id="table{{numtable}}_inp{{i}}" name="table{{numtable}}_{{champ.nom}}" type="text" pattern="[0-9]{5}" [minlength]="5" [maxlength]="5"
+                                                    title="Le code postal doit être valide" [required]="true" (ionChange)="onInputChange($event, champ, i)" [formControlName]="i"></ion-input>
+                                                </ion-item>
+
+                                                @if ((isSubmitted) && (errorControlfield(i.toString()).errors?.required || errorControlfield(i.toString()).errors?.pattern))
+                                                {
+                                                    <span class="error ion-padding">Un code postal français est requis. Il doit être composé de 5 chiffres</span>
+                                                }
+
+                                            }
+                                            @case('codepromo')
+                                            {
+                                                <ion-item>
+                                                <ion-input [label]="champ.desc + '&nbsp;:&nbsp;'" label-placement="fixed" id="table{{numtable}}_inp{{i}}" name="table{{numtable}}_{{champ.nom}}" type="text" pattern="[A-Z]{8}" [minlength]="8" [maxlength]="8"
+                                                    title="Le code promotionnel doit être valide" [required]="true" (ionChange)="onInputChange($event, champ, i)" [formControlName]="i"></ion-input>
+                                                </ion-item>
+
+                                            }
+                                            @case('couleur')
+                                            {
+                                                <ion-item>
+                                                <ion-input [label]="champ.desc + '&nbsp;:&nbsp;'" label-placement="fixed" id="table{{numtable}}_inp{{i}}" name="table{{numtable}}_{{champ.nom}}" type="text" pattern="^#([A-Fa-f0-9]{6})$" [minlength]="7" [maxlength]="7"
+                                                    title="La couleur héxadécimal doit être valide" (ionChange)="onInputChange($event, champ, i)" [formControlName]="i" [required]="true"></ion-input>
+                                                </ion-item>
+
+                                                @if ((isSubmitted) && (errorControlfield(i.toString()).errors?.required || errorControlfield(i.toString()).errors?.pattern))
+                                                {
+                                                    <span class="error ion-padding">Une couleur héxadécimal (RVB) est requise. Elle doit être de composé du signe # et de 6 chiffres (de 0 à 9) ou de lettres (majuscule ou minuscule de A à F) de la numérotation hexadécimal</span>
+                                                }
+
+                                            }
+                                            @case('fk')
+                                            {
+                                                @if ((nomliens?.length === champs?.length) && (champ.nom !== 'statid') && (liste?.length >= i) && (liste[i]) && liste[i]?.length)
+                                                {
+                                                    <ion-item>
+                                                        <ion-select [interfaceOptions]="customAlertOptions" [label]="nomliens[i] + '&nbsp;:&nbsp;'" label-placement="fixed" id="table{{numtable}}_lien{{i}}" name="table{{numtable}}_{{champ.nom}}" (ionChange)="onLienChange($event, champ, i)" [formControlName]="i">
+                                                            @for(list of liste[i]; track list.id; let j = $index)
+                                                            {
+                                                                @if ((list.id !== 0) || champ.nom === 'catid')
+                                                                {
+                                                                    <ion-select-option id="table{{numtable}}_lien{{i}}_opt{{j}}" [value]="list.id">{{ list.valeur }}</ion-select-option>
+                                                                }
+                                                            }
+                                                        </ion-select>
+                                                    </ion-item>
+                                                }
+                                                @if ((isSubmitted) && (errorControlfield(i.toString()).errors?.required))
+                                                {
+                                                    <span class="error ion-padding">Ce champ est requis</span>
+                                                }
+
+                                            }
+                                        }
+                                }
+                            }
+                            @else
+                            {
+                                @if ((champ.typ !== 'pk') && (champ.nom !== selcol) && (champ.typ !== 'image') && (champ.nom !== 'statid'))
+                                {
+                                    <ion-item>
+                                        <ion-label>{{ champ.desc }}&nbsp;:&nbsp;</ion-label>
+                                        @if (valeurs?.length > i)
+                                        {
+                                            @if (champ.typ !== 'fk')
+                                            {
+                                                <ion-label id="table{{ numtable }}lbl{{ i }}">{{ valeurs[i] }}</ion-label>
+                                            }
+                                            @else
+                                            {
+                                               <ion-label id="table{{ numtable }}lbl{{ i }}">{{ valeurs[i].valeur }}</ion-label>
+                                            }
+                                        }
+                                    </ion-item>
+                                }
+                            }
+                            @if(isStatutFieldValid(champ, i))
+                            {
+                                <ion-item>
+                                    <ion-select
+                                        [interfaceOptions]="statusAlertOptions"
+                                        [label]="nomliens[i] + ' : '"
+                                        label-placement="fixed"
+                                        id="dtable{{ numtable }}lien{{ i }}"
+                                        (ionChange)="onStatutChange($event, i)"
+                                        [value]="valeurs[i]?.id"
+                                        [style.--background]="valeurs[i]?.couleur"
+                                        [style.--color]="(luminosite((valeurs[i]?.couleur ?? '#FFFFFF')) > 127) ? 'black' : 'white'">
+
+                                        @for(list of liste[i]; track list.id; let j = $index) {
+                                            <ion-select-option
+                                                id="dtable{{ numtable }}lien{{ i }}opt{{j}}"
+                                                [style.--background]="list.couleur"
+                                                [style.--color]="(luminosite((list.couleur ?? '#FFFFFF')) > 127) ? 'black' : 'white'"
+                                                [value]="list.id"
+                                                [ngClass]="'optbackcolor' + j">
+                                                {{ list.valeur }}
+                                            </ion-select-option>
+                                        }
+                                    </ion-select>
+                                </ion-item>
+                            }
+                        </div>
+                    }
+                    @if  (table === 'article')
+                    {
+                        <ion-item class="">
+                            <div>
+                                <ion-button expand="block" (click)="pickImages()" color="secondary" shape="round" fill="solid">Chargement des images</ion-button>
+                                <div style="position:relative;display: flex;">
+                                    <ngb-carousel id="carouselimgid" class="frameimg imgart" [interval]="0" [showNavigationIndicators]="false">
+                                        @for(img of SubmitBase.listimgvis;track img.pkid; let i = $index)
+                                        {
+                                            <ng-template ngbSlide>
+                                                <div class="picsum-img-wrapper" [class]="(i === 0) ? 'active' : ''">
+                                                    <ion-img src="{{ srvroot }}upload/{{ img.filename }}" class="imgart" alt="" ></ion-img>
+                                                </div>
+                                                <div class="imgclose">
+                                                    <ion-img  src="assets/img/fermer.png" alt=""
+                                                          (click)="onRemoveImgFromLst(i)" [hidden]="SubmitBase.listimg.length <= 0"></ion-img>
+                                                </div>
+                                                @if (!logoloaded)
+                                                {
+                                                    <ion-spinner id="spinimgid" name="crescent"></ion-spinner>
+                                                }
+                                                <div id="favoriid">
+                                                    <ion-img [src]="!img.favori ? 'assets/svg/favori_unselected.svg' : 'assets/svg/favori_selected.svg'"
+                                                            alt="" [class]="( !img.favori) ? 'imgfavorioff' : 'imgfavorion'"
+                                                          (click)="onChangeFavImg(i)" [hidden]="SubmitBase.listimg.length <= 0"></ion-img>
+                                                </div>
+                                            </ng-template>
+                                        }
+                                    </ngb-carousel>
+                                </div>
+                            </div>
+                        </ion-item>
+                    }
+                </form>
+            }
+        </div>
+    </div>
+</div>
+<br>
+<br>
+<br>
+@if (action !== 'view')
+{
+    <ion-fab vertical="bottom" horizontal="start" slot="fixed">
+        <ion-fab-button class="otherbutton" id="cancelid" (click)="gotoUpperPage($event)">
+            <ion-icon name="close-outline"></ion-icon>
+        </ion-fab-button>
+    </ion-fab>
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+        <ion-fab-button type="submit" class="actionbutton" id="validid" (click)="SubmitAction($event)">
+            <ion-icon name="checkmark-outline"></ion-icon>
+        </ion-fab-button>
+    </ion-fab>
+}
+

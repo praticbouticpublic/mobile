@@ -1,0 +1,36 @@
+.centerflex
+{
+    justify-content: center;
+    display: flex; 
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
+ion-spinner {
+    transform: scale(3);
+}
+
+.actionbutton
+{
+    --background:#009CDB;
+    --color:#FFFFFF;
+}
+
+.actioncolor
+{
+    --color:#009CDB;
+}
+
+.othercolor
+{
+    --background:#e2007a;
+    --color:#FFFFFF;
+}
+
+.otherbutton
+{
+    --background: white;
+    --border-color: #e2007a;
+    --color: #e2007a;
+}

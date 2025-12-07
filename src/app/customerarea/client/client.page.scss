@@ -1,0 +1,40 @@
+.radio
+{
+margin-right: 10px;
+}
+
+.eyeset
+{
+    margin-top: auto;
+    margin-bottom: 10px;
+}
+
+.actionbutton
+{
+    --background:#009CDB;
+}
+
+.otherbutton
+{
+    --background: white;
+    --border-color: #e2007a;
+    --color: #e2007a;
+}
+
+.centerflex
+{
+    justify-content: center;
+    display: flex; 
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
+ion-spinner {
+    transform: scale(3);
+}
+
+.actioncolor
+{
+    --color:#009CDB;
+}

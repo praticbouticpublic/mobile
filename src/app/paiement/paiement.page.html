@@ -1,0 +1,131 @@
+<ion-header>
+    <ion-card [routerLink]="['/admin/welcome']" [hidden]="loadingState">
+        <ion-img id="mainlogo" src="assets/img/logo-pratic-boutic.png"></ion-img>
+    </ion-card>
+    <ion-toolbar>
+        <ion-title>Résumé de votre commande</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content id="main" style="height:80vh">
+    @if (logo) {
+        <ion-img id="logo" [src]="srvroot + 'upload/' + logo" [hidden]="!logo" />
+    }
+    <p id="marqueid" class="marque" [hidden]="logo">{{ nom }}</p>
+
+    @if (loadingState) {
+        <div class="spincenter">
+            <ion-spinner id="spinimgid" class="bigspinner"></ion-spinner>
+        </div>
+    }
+    @else {
+        <div id="pan">
+            <div id="methodid">
+                @if (method === 2) {
+                    <p class="pres">Consommation sur place</p>
+                }
+            </div>
+
+            <div id="tableid">
+                @if (method === 2) {
+                    <p class="pres">Table numéro {{ table }}</p>
+                }
+            </div>
+
+            <div id="commandediv">
+                @if (commande) {
+                    <ion-grid class="w80per">
+                        <ion-row>
+                            <ion-col class="colart" size="6">Article</ion-col>
+                            <ion-col class="colstd">Prix</ion-col>
+                            <ion-col class="colstd">Qté</ion-col>
+                            <ion-col class="colprx">Total</ion-col>
+                        </ion-row>
+                        @for (cmdline of commande; track cmdline.id) {
+                            <ion-row>
+                                <ion-col class="colart" size="6">{{ cmdline.name }}</ion-col>
+                                <ion-col class="colstd">{{ cmdline.prix | number:'1.2-2' }}</ion-col>
+                                <ion-col class="colstd">{{ cmdline.qt }}</ion-col>
+                                <ion-col class="colprx">{{ parseFloat(cmdline.prix) * parseFloat(cmdline.qt) | number:'1.2-2' }}</ion-col>
+                            </ion-row>
+                        }
+                    </ion-grid>
+                }
+            </div>
+
+            @if (vente === 'LIVRER' && method > 2) {
+                <div class="fraistotal" id="sstotalid">
+                    <p class="fleft">Sous-total : </p>
+                    <p class="fright">{{ somme | number:'1.2-2' }} € </p><br>
+                </div>
+            }
+
+            @if (remise > 0) {
+                <div class="fraistotal" id="remiseid">
+                    <p class="fleft">Remise : </p>
+                    <p class="fright">{{ -remise | number:'1.2-2' }} € </p><br>
+                </div>
+            }
+
+            @if (vente === 'LIVRER' && method > 2) {
+                <div class="fraistotal" id="fraislivid">
+                    <p class="fleft">Frais de livraison : </p>
+                    <p class="fright">{{ fraislivr | number:'1.2-2' }} € </p><br>
+                </div>
+            }
+
+            <div class="fraistotal mbot" id="totalid">
+                @if (vente === 'LIVRER' && method > 2) {
+                    <p class="fleft wbld">Total : </p>
+                    <p class="fright">{{ (fraislivr + somme - remise) | number:'1.2-2' }} € </p><br>
+                }
+                @else if (vente === 'EMPORTER' || method === 2) {
+                    <p class="fleft wbld">Total : </p>
+                    <p class="fright">{{ (somme - remise) | number:'1.2-2' }} € </p><br>
+                }
+            </div>
+
+            @if (paiement === 'COMPTANT' && method > 2) {
+                <div class="fpay" id="payid">
+                    <p class="mntpay">MONTANT &Agrave; PAYER : {{ (fraislivr + somme - remise) | number:'1.2-2' }} € </p>
+                </div>
+            }
+        </div>
+
+        <div id="paiementfooter" [hidden]="loadingState" class="w80per">
+            @if (method === 3 && paiement === 'COMPTANT') {
+                @if (mnysys === 'STRIPE MARKETPLACE') {
+                    <div>
+                        @if (elementsOptions.clientSecret) {
+                            <ngx-stripe-elements [stripe]="stripe" [elementsOptions]="elementsOptions">
+                                <ngx-stripe-payment [options]="paymentElementOptions" />
+                            </ngx-stripe-elements>
+                            <ion-button (click)="pay()" class="btnstripe">PAYER</ion-button>
+                        }
+                    </div>
+                }
+            }
+        </div>
+    }
+</ion-content>
+
+<ion-footer>
+    <div id="footer" [hidden]="loadingState">
+        @if ((method  !== 3) || (paiement !== 'COMPTANT'))
+        {
+            <ion-button fill="outline" color="dark" class="navindic ripplenice" id="retourcmd" (click)="Retour()">Revenir</ion-button>
+            <ion-button color="dark" class="navindic ripplenice" id="validcmd" (click)="gotoFin()">Valider</ion-button>
+        }
+        @else
+        {
+            <ion-button color="dark" class="navindicsolo ripplenice" id="retourcarte" (click)="Retour()">Revenir</ion-button>
+        }
+    </div>
+
+    @if (getShowBarre()) {
+        <div id="barre">
+            Ce site utilise des cookies
+            <div id="fermer" (mousedown)="setShowBarre(true)"></div>
+        </div>
+    }
+</ion-footer>

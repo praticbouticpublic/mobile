@@ -1,0 +1,33 @@
+<ion-tabs>
+    <ion-tab-bar>
+        <ion-tab-button tab="shop">
+            <ion-icon name="business-outline"></ion-icon>
+            <ion-label>Boutic</ion-label>
+        </ion-tab-button>
+        <ion-tab-button tab="settings">
+            <ion-icon name="settings-outline"></ion-icon>
+            <ion-label>Réglages</ion-label>
+        </ion-tab-button>
+        @if ( statutcmd)
+        {
+            <ion-tab-button tab="displaytable/statutcmd/none/0">
+                <ion-icon name="color-palette-outline"></ion-icon>
+                <ion-label>Status des commandes</ion-label>
+            </ion-tab-button>
+        }
+    </ion-tab-bar>
+    <ion-tab-bar>
+        <ion-tab-button tab="backoffice">
+            <ion-icon name="toggle-outline"> </ion-icon>
+            <ion-label>Back-Office</ion-label>
+        </ion-tab-button>
+        <ion-tab-button tab="qrcodegen">
+            <ion-icon name="qr-code-outline"></ion-icon>
+            <ion-label>Générateur de QRCode</ion-label>
+        </ion-tab-button>
+        <ion-tab-button tab="client">
+            <ion-icon name="person-outline"></ion-icon>
+            <ion-label>Client</ion-label>
+        </ion-tab-button>
+    </ion-tab-bar>
+</ion-tabs>

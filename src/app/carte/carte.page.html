@@ -1,0 +1,207 @@
+<ion-header>
+  <ion-card [routerLink]="['/admin/welcome']" [hidden]="loadingState">
+    <ion-img id="mainlogo"  src="assets/img/logo-pratic-boutic.png" />
+  </ion-card>
+  <ion-toolbar>
+    <ion-title>Bon de commande</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <div id="main">
+        @if (logo) {
+            <ion-img id="logo" [src]="srvroot + 'upload/' + logo" />
+        }
+        <p id="marqueid" class="marque" [hidden]="logo">{{ nom }}</p>
+        <ion-spinner class="spincenter bigspinner" [hidden]="!loadingState" id="spinimgid"></ion-spinner>
+
+        <div id="mainformid" name="mainform" autocomplete="off" [hidden]="loadingState">
+
+            @for (cat of categories; track cat.id; let a = $index) {
+                @if (cat.active && cat.id) {
+                    <ion-button fill="clear" [hidden]="!cat.id" class="accordion"
+                                (click)="cat.open = !cat.open"
+                                [class]="cat.open ? 'activepb' : ''">
+                        {{ cat.nom }}
+                    </ion-button>
+                }
+
+                <div class="panel" [style.maxHeight]="(cat.id > 0) ? 'initial' : 'max-content'" [hidden]="!cat.open">
+                    @for (art of articles; track art.id; let b = $index) {
+                        @if ((cat.active || !cat.id) && (art.categorie.id === cat.id)) {
+                            <div class="arcel artcelb">
+                                @if (sizeimg === 'bigimg') {
+                                    <div>
+                                        <ng-container style="position:relative;display: flex;">
+                                            <swiper-container class="frameimg imgart" navigation="true">
+                                                @for (img of art.listimg; track img.image) {
+                                                    <swiper-slide>
+                                                        <ng-container class="picsum-img-wrapper" [class]="(b === 0) ? 'active' : ''">
+                                                            <ion-img [src]="srvroot + 'upload/' + img.image"
+                                                                     class="pic bigimg"
+                                                                     alt=""
+                                                                     (load)="img.loaded = true;" />
+                                                        </ng-container>
+                                                        <ion-spinner id="spinimgid"
+                                                                     class="picsum-img-wrapper imgart"
+                                                                     [hidden]="img.loaded">
+                                                        </ion-spinner>
+                                                    </swiper-slide>
+                                                }
+                                            </swiper-container>
+
+                                            <div class="rowah">
+                                                <div class="colb1">
+                                                    <div class="nom">{{ art.nom }}<br></div>
+                                                    @if (art.description.length > 0) {
+                                                        <div class="desc">{{ art.description }}<br></div>
+                                                    }
+                                                </div>
+                                                <div class="colb2"></div>
+                                            </div>
+
+                                            <div class="rowah">
+                                                <div class="colb1">
+                                                    <div class="vctrqte">
+                                                        <p class="qte">Quantit&eacute;s :&nbsp;&nbsp;</p>
+                                                        <ion-img class="bts bmoins"
+                                                                 [src]="!art.qte ? 'assets/img/bouton-moins-inactif.png' : 'assets/img/bouton-moins.png'"
+                                                                 (click)="subQt(art)" />
+                                                        <p class="artqt">{{ art.qte }}</p>
+                                                        <ion-img class="bts bplus"
+                                                                 src="assets/img/bouton-plus.png"
+                                                                 (click)="addQt(art)" />
+                                                    </div>
+                                                </div>
+                                                <div class="colb2">
+                                                    <p class="prix">{{ (art.prix | number:'1.2-2') + ' ' + art.unite }}<br></p>
+                                                </div>
+                                            </div>
+                                        </ng-container>
+                                    </div>
+                                }
+                                @else if (sizeimg === 'smallimg') {
+                                    <div>
+                                        <div class="rowah">
+                                            <div class="cola1">
+                                                <div class="nom">{{ art.nom }}<br></div>
+                                                <div class="desc">{{ art.description }}<br></div>
+                                                @if (method > 0) {
+                                                    <div class="vctrqte">
+                                                        <p class="qte">Quantit&eacute;s :&nbsp;&nbsp;</p>
+                                                        <ion-img class="bts bmoins"
+                                                                 [src]="!art.qte ? 'assets/img/bouton-moins-inactif.png' : 'assets/img/bouton-moins.png'"
+                                                                 (click)="subQt(art)" />
+                                                        <p class="artqt">{{ art.qte }}</p>
+                                                        <ion-img class="bts bplus"
+                                                                 src="assets/img/bouton-plus.png"
+                                                                 (click)="addQt(art)" />
+                                                    </div>
+                                                }
+                                                <div class="prixsm">{{ (art.prix | number:'1.2-2') + ' ' + art.unite }}</div>
+                                            </div>
+                                            <div class="cola2">
+                                                <ng-container style="position:relative;display: flex;">
+                                                    <swiper-container class="frameimg imgart fullwidth"
+                                                                      navigation="true"
+                                                                      style="position:relative;display: grid;">
+                                                        @for (img of art.listimg; track img.image) {
+                                                            <swiper-slide>
+                                                                <ng-container class="picsum-img-wrapper" [class]="(b === 0) ? 'active' : ''">
+                                                                    <ion-img [src]="srvroot + 'upload/' + img.image"
+                                                                             class="pic bigimg"
+                                                                             alt=""
+                                                                             (load)="img.loaded = true;" />
+                                                                </ng-container>
+                                                                <ion-spinner id="spinimgid"
+                                                                             class="picsum-img-wrapper imgart"
+                                                                             [hidden]="img.loaded">
+                                                                </ion-spinner>
+                                                            </swiper-slide>
+                                                        }
+                                                    </swiper-container>
+                                                </ng-container>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+
+                                <div [hidden]="!art.qte">
+                                    <ion-item class="fullwidth">
+                                        <ion-textarea placeholder="Saisissez ici vos besoins spécifiques sur cet article"
+                                                      [maxlength]="300">
+                                        </ion-textarea>
+                                    </ion-item>
+
+                                    <div class="divopt" [hidden]="method <= 0 || !art.groupes.length">
+                                        <div class="slidepb" [style.display]="method > 0 ? 'flex' : 'none'">
+                                            <p class="sli">{{ art.nom }}&nbsp;numéro&nbsp;</p>
+                                            <ion-img class="arrow bts"
+                                                     src="assets/img/left-arrow.png"
+                                                     (click)="setart(art, -1)"
+                                                     [style.opacity]="art.current === 1 ? '0.5' : '1'"
+                                                     [style.pointerEvents]="art.current === 1 ? 'none' :'auto'" />
+                                            <p class="curarticle sli cursor">{{ art.current }}</p>
+                                            <ion-img class="arrow bts"
+                                                     src="assets/img/right-arrow.png"
+                                                     (click)="setart(art, +1)"
+                                                     [style.opacity]="art.current === art.qte ? '0.5' : '1'"
+                                                     [style.pointerEvents]="art.current === art.qte ? 'none' :'auto'" />
+                                            <p class="curarticle sli cursor">/ {{ art.qte }}</p>
+                                        </div>
+
+                                        <div class="divopt2" [hidden]="method <= 0">
+                                            @for (grp of art.groupes; track grp.id; let d = $index) {
+                                                <div class="flexsp">
+                                                    <ion-item>
+                                                        <ion-label>{{ grp.nom }} {{ !grp.multi ? '(unique)' : '(multiple)' }}<br></ion-label>
+                                                        <ion-select
+                                                            [interfaceOptions]="customAlertOptions"
+                                                            class="selb"
+                                                            [multiple]="grp.multi"
+                                                            [value]="grp.selection[art.current - 1]"
+                                                            (ionChange)="setNewValue($event, art, d, art.current); totaliser();"
+                                                        >
+                                                            @for (opt of grp.options; track opt.id) {
+                                                                <ion-select-option [value]="opt.id">
+                                                                    {{ opt.surcout > 0 ? opt.nom + ' + ' + (opt.surcout | number:'1.2-2') + ' € ' : opt.nom }}
+                                                                </ion-select-option>
+                                                            }
+                                                        </ion-select>
+                                                    </ion-item>
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        }
+                    }
+                </div>
+            }
+        </div>
+    </div>
+</ion-content>
+
+<ion-footer>
+    <div id="footer" [hidden]="loadingState">
+        <ion-button fill="outline" color="dark" id="totaliseur" class="navindic no-ripple"
+                    [hidden]="method <= 0" aria-readonly="true">
+            Total : {{ (somme | number:'1.2-2') }}
+        </ion-button>
+        <ion-button color="dark" id="validcarte" class="navindic ripplenice"
+                    [hidden]="method <= 0"
+                    [disabled]="method <= 0"
+                    (click)="Poursuivre()">
+            Poursuivre
+        </ion-button>
+    </div>
+
+    @if (getShowBarre()) {
+        <div id="barre">
+            Ce site utilise des cookies
+            <div id="fermer" (mousedown)="setShowBarre(true)"></div>
+        </div>
+    }
+</ion-footer>

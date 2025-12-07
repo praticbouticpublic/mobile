@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Validation du code</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="changificationFormGroup" (ngSubmit)="onSubmit()" novalidate>
+    <ion-item>
+      <ion-input label="Code : " id="code" name="code" type="text" placeholder="Code" formControlName="code"
+                  title="6 chiffres" (ionInput)="bak('emailcode', code)">
+      </ion-input>
+    </ion-item>
+      @if (isSubmitted && errorControl.code.errors?.required)
+      {
+          <span class="error ion-padding">
+             Le code envoyé sur votre courriel est requis
+          </span>
+      }
+    <ion-item>
+      <ion-button #btnSendCode (click)="sendCode(btnSendCode)">Renvoyer le code</ion-button>
+    </ion-item>
+  </form>
+  <br>
+  <br>
+  <br>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button class="actionbutton" id="validid" (click)="onSubmit()">
+      <ion-icon name="send-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  <!--<ion-fab vertical="bottom" horizontal="start" slot="fixed">
+    <ion-fab-button class="otherbutton" id="cancelid" (click)="cancel()">
+      <ion-icon name="arrow-undo-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>-->
+</ion-content>

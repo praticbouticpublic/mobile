@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Détails Commandes Clients</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+    @if (!loading) {
+        <app-presentationrecord action="view" table="commande" selcol="" [selid]="0" [id]="cmdid"></app-presentationrecord>
+        <app-presentationtable table="lignecmd" selcol="cmdid" [selid]="cmdid" writable="false"></app-presentationtable>
+    }
+    <br>
+    <br>
+    <br>
+    <ion-fab vertical="bottom" horizontal="start" slot="fixed">
+        <ion-fab-button class="otherbutton" id="cancelid" (click)="gotoUpperPage()">
+            <ion-icon name="close-outline"></ion-icon>
+        </ion-fab-button>
+    </ion-fab>
+</ion-content>
+
+

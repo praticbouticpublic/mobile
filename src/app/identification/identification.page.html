@@ -1,0 +1,51 @@
+<ion-header class="whitebackg">
+  <ion-toolbar class="whitebackg">
+    <br>
+    <ion-img id="mainlogo" src="assets/img/logo-pratic-boutic.png"></ion-img>
+    <br>
+    <ion-img src="assets/img/timeline-etape-1.png" alt=""></ion-img>
+    <br>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ppanel">
+    @if (loaded)
+    {
+        <div class="whitebackg centered ion-text-center">
+            <form [formGroup]="identificationFormGroup" (ngSubmit)="onSubmit()" novalidate>
+                <br>
+                <ion-label class="txtcenter txtwhite bld">IDENTIFICATION</ion-label>
+                <ion-item class="rounded">
+                    <ion-input shape="round" label="Code : " id="code" name="code" type="text" placeholder="Code" formControlName="code"
+                               title="6 chiffres" (ionInput)="bak('emailcode', code)">
+                    </ion-input>
+                </ion-item>
+                @if (isSubmitted &&  (errorControl.code.errors?.required || errorControl.code.errors?.pattern))
+                {
+                    <span class="error ion-padding txtwhite" >
+                        Le code envoyé sur votre courriel est requis
+                    </span>
+                }
+                <br>
+                <ion-row>
+                    <ion-col>
+                        <ion-button #btnSendCode shape="round" expand="block" class="action2button txtcenter" (click)="sendCode(btnSendCode)">Renvoyer le code</ion-button>
+                    </ion-col>
+                </ion-row>
+            </form>
+            <br>
+            <ion-row>
+                <ion-col>
+                    <ion-button shape="round" type="button" id="validid" class="actionbutton" expand="block" (click)="onSubmit()"><ion-icon name="send-outline"></ion-icon>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CONTINUER</ion-button>
+                </ion-col>
+            </ion-row>
+            <br>
+            <br>
+            <!--<ion-fab vertical="bottom" horizontal="start" slot="fixed">
+              <ion-fab-button shape="round" class="otherbutton" id="cancelid" (click)="cancel()">
+                <ion-icon name="arrow-undo-outline"></ion-icon>
+              </ion-fab-button>
+            </ion-fab>-->
+        </div>
+    }
+</ion-content>

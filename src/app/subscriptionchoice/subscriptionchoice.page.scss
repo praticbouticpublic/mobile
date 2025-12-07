@@ -1,0 +1,67 @@
+.centerflex
+{
+    justify-content: center;
+    display: flex; 
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
+ion-spinner {
+  transform: scale(3);
+  color:#e2007a;
+}
+
+.urlstyle
+{
+    color: blue;
+    text-decoration: underline;
+}
+
+.txtcenter
+{
+    text-align: center;
+}
+
+.txtunderline
+{
+    text-decoration: underline;
+}
+
+.actionbutton
+{
+    --background:#009CDB;
+}
+
+.otherbutton
+{
+    --background: white;
+    --border-color: #e2007a;
+    --color: #e2007a;
+}
+
+.greybackg
+{
+    --background: #595858;
+    --color: white;
+}
+
+.logoheader
+{
+    width: 33%;
+    height: 33%;
+    margin-left: 33%;
+    margin-right: 33%;
+    margin-top: 5%;
+}
+
+.petitmargecadre
+{
+    margin: 5%;
+}
+
+.petitemargeblanche
+{
+    padding: 3%;
+    background-color: white;
+}

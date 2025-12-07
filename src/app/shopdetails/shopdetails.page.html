@@ -1,0 +1,91 @@
+<ion-header class="whitebackg">
+  <ion-toolbar class="whitebackg">
+    <br>
+    <ion-img id="mainlogo" src="assets/img/logo-pratic-boutic.png"></ion-img>
+    <br>
+    <ion-img src="assets/img/timeline-etape-3.png" alt=""></ion-img>
+    <br>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="">
+    @if (!loaded)
+    {
+        <div class="centerflex">
+            <ion-spinner class="bigspinner" name="crescent"></ion-spinner>
+        </div>
+    }
+    @else
+    {
+        <form id="shop-form" [formGroup]="shopdetForm" id="shopdetails-form" novalidate>
+            <ion-img src="assets/img/illustration_4.png" alt="" class="petitmargecadre"></ion-img>
+            <ion-item class="txtcenter txtpink">
+                <ion-label><h1><b>Initialisation de la Boutic</b></h1></ion-label>
+            </ion-item>
+            <ion-list>
+                <ion-item>
+                    <ion-input formControlName="nom" class="paramfieldc" id="nom" name="nom" type="text" placeholder="Nom de la boutic" value="" (ionChange)="Correction($event);bak('praticboutic_shopdetails_nom', shopdetForm.value.nom)"></ion-input>
+                </ion-item>
+                @if (isSubmitted && errorControl.nom.errors?.required)
+                {
+                    <span class="error ion-padding">
+                        Un nom valide est requis
+                    </span>
+                }
+                <ion-item>
+                    <ion-input formControlName="aliasboutic" class="paramfieldc" id="aliasboutic" name="aliasboutic" type="text" placeholder="Alias de la Boutic" value="" title="Boutic Alias uniquement des minuscules et des chiffres" (ionChange)="bak('praticboutic_shopdetails_aliasboutic', shopdetForm.value.aliasboutic)"></ion-input>
+                </ion-item>
+                @if (isSubmitted && (errorControl.aliasboutic.errors?.required ||errorControl.aliasboutic.errors?.pattern))
+                {
+                    <span class="error ion-padding">
+                        L'alias de la boutic contenant uniquement des minuscules et des chiffres d'au moins 3 caractères de long est requis
+                    </span>
+                }
+                <ion-item>
+                    <ion-input formControlName="email" class="paramfieldc" id="email" name="email" type="email" placeholder="Courriel de la Boutic" title="Courriel où sera envoyé les commandes" autocomplete="on" (ionChange)="bak('praticboutic_shopdetails_courriel', shopdetForm.value.email)" email></ion-input>
+                </ion-item>
+                @if (isSubmitted && (errorControl.email.errors?.required || errorControl.email.errors?.pattern))
+                {
+                    <span class="error ion-padding">
+                        Un courriel valide de la forme user&#64;domain.ext est requis
+                    </span>
+                }
+                <ion-item class="imageitem">
+                    <div id="bloclogoid">
+                        <ion-button expand="block" (click)="pickImages()" color="secondary" shape="round" fill="solid">Chargement du logo</ion-button>
+                        <div class="frameimg">
+                            @if (!logoloaded)
+                            {
+                                <ion-spinner name="crescent"></ion-spinner>
+                            }
+
+                            @if (srclogo !== null)
+                            {
+                                <ion-img id="artlogo" class="imgart" src="{{ srvroot }}upload/{{ srclogo }}" alt=""></ion-img>
+                                <ion-img id="logofermer" class="imgclose" src="assets/img/fermer.png" data-artlogofile="artlogofile" data-artlogo="artlogo" (click)="closeimg($event)" alt=""></ion-img>
+                            }
+                        </div>
+                    </div>
+                </ion-item>
+                <ion-item>
+                    <ion-checkbox slot="start" class="" id="autologo" name="autologo" type="checkbox" title="Logo automatique (facultatif)" labelPlacement="end"><div class="ion-text-wrap">Je n'ai pas de logo, création automatique de logo</div></ion-checkbox>
+                </ion-item>
+            </ion-list>
+        </form>
+    }
+  <br>
+  <ion-row>
+    <ion-col>
+      <ion-button shape="round" type="button" id="validid" class="actionbutton" expand="block" (click)="onSubmit()"><ion-icon name="send-outline"></ion-icon>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CONTINUER</ion-button>
+    </ion-col>
+  </ion-row>
+  <br>
+  <br>
+  <!--<ion-fab vertical="bottom" horizontal="start" slot="fixed">
+    <ion-fab-button class="otherbutton" id="cancelid" (click)="onCancel()">
+      <ion-icon name="close-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>-->
+  <br>
+  <br>
+  <br>
+</ion-content>

@@ -1,0 +1,87 @@
+.centerflex
+{
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    margin-top: 40vh;
+    margin-bottom: 40vh;
+    margin-left: 0vw;
+    margin-right: 0vw;
+
+}
+
+.bigspinner {
+    transform: scale(3);
+    color:#009CDB;
+}
+
+#picker
+{
+    margin-top: 10px;
+    margin-left: 33%;
+    margin-right: 33%;
+}
+
+ion-select.in-item {
+    max-width: 100% !important;
+}
+
+.actionbutton
+{
+    --background:#009CDB;
+}
+
+.otherbutton
+{
+    --background: white;
+    --border-color: #e2007a;
+    --color: #e2007a;
+}
+
+.picsum-img-wrapper
+{
+    display: flex;
+    justify-content: center;
+}
+
+#favoriid
+{
+    z-index: 2;
+    position: absolute;
+    top: 5px;
+    right: 7px;
+    height: 20px;
+    width: 20px;
+}
+
+.imgclose
+{
+    z-index: 2;
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    height: 20px;
+    width: 20px;
+}
+
+#spinimgid
+{
+    z-index: 10;
+    position: absolute;
+    align-content: center;
+    justify-content: center;
+    display: flex;
+    transform: scale(1);
+    left: 50%;
+    right: 50%;
+    top: 50%;
+    bottom: 50%;
+    flex-wrap: inherit;
+}
+
+.error
+{
+    color: red;
+}

@@ -1,0 +1,98 @@
+@if (!loaded)
+{
+    <div class="centerflex">
+        <ion-spinner class="actioncolor" name="crescent"></ion-spinner>
+    </div>
+}
+@else
+{
+    <div id="table{{ numtable }}">
+        @if (total > 0)
+        {
+            <div class="table-container">
+                <ion-grid class="table-hover">
+                    <thead>
+                        <ion-row class="longtab headertitle">
+                            @for (tablechamp of latable.champs; track tablechamp[0]; let i = $index)
+                            {
+                                @if (tablechamp.typ !== 'pk' && tablechamp.vis !== 'n' && tablechamp.nom !== selcol) {
+                                    @if (tablechamp.typ !== 'fk') {
+                                        <ion-col class="tablecol">{{tablechamp.desc}}</ion-col>
+                                    }
+                                    @else {
+                                        @for (lien of liens; track lien.nom )
+                                        {
+                                            @if ((lien.srctbl === latable.nom) && (lien.srcfld === tablechamp.nom))
+                                            {
+                                                <ion-col class="tablecol">{{lien.desc}}</ion-col>
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        </ion-row>
+                    </thead>
+                    <tbody>
+                        @if ((table === 'commande') ? colorready : true)
+                        {
+                            @for(donnee of donnees; track donnee[0] ; let j = $index)
+                            {
+                                <ion-row  class="colored clickable-row relief longtab" [style.background-color]="(table == 'commande') ? couleur[j] : 'white'" [style.color]="(table == 'commande') ? ((luminosite(couleur[j])>127) ? 'black' : 'white') : 'black'">
+                                    @for (tablechamp of latable.champs; track tablechamp.nom ; let i = $index ) {
+                                        @if (tablechamp.typ !== 'pk' && tablechamp.vis !== 'n' && tablechamp.nom !== selcol && tablechamp.typ !== 'fk')
+                                        {
+                                            <ion-col class="tablecol">
+                                                @switch (tablechamp.typ)
+                                                {
+                                                    @case ('prix')  {
+                                                        <div class="expanded fullheight" (click)="onClickCellVal($event, j)">{{ donnees[j][i] | number:'1.2-2' }}</div>
+                                                    }
+                                                    @case ('percent')  {
+                                                        <div class="expanded fullheight" (click)="onClickCellVal($event, j)">{{ donnees[j][i] / 100 | percent }}</div>
+                                                    }
+                                                    @case ('bool')  {
+                                                        <ion-checkbox [disabled]="table == 'commande'" [checked]="(donnees[j][i] > 0)" (click)="onCheckCell($event, j, i)" aria-label=""></ion-checkbox>
+                                                    }
+                                                    @default  {
+                                                        <div class="expanded fullheight" (click)="onClickCellVal($event, j)">{{ donnees[j][i] }}</div>
+                                                    }
+                                                }
+                                            </ion-col>
+                                        }
+                                        @else if (tablechamp.typ === 'fk' && tablechamp.nom !== selcol)
+                                        {
+                                            @for (lien of liens; track lien.nom)
+                                            {
+                                                @if (((lien.srctbl === latable.nom) && (lien.srcfld === tablechamp.nom))) {
+                                                    <ion-col class="tablecol" (click)="onClickCellVal($event, j)"><div class="expanded">{{ donnees[j][i] }}</div></ion-col>
+                                                }
+                                            }
+                                        }
+                                    }
+                                </ion-row>
+                            }
+                        }
+                    </tbody>
+                </ion-grid>
+            </div>
+        }
+        @else  {
+            <div>
+                <p><em>Il n'y a pas de {{ latable.desc }} à afficher</em></p>
+            </div>
+        }
+        @if (pagination) {
+            <div class="divrpp overflownorm divrpp d-flex justify-content-between p-2">
+                <ngb-pagination class="nicecolor" [pageSize]="limite" [collectionSize]="getTotalPage() * limite" [(page)]="activepage" aria-label="Default pagination" (pageChange)="onPageChange(activepage)"></ngb-pagination>
+                <ion-select fill="outline" interface="popover" style="width: auto" placeholder="Nombre de résultats par page" (ionChange)="onChangeNbRes($event)" id="rppid{{model.getnumtable(table)}}" [value]="limite" [(ngModel)]="limite" (ngModelChange)="onPageChange(activepage)">
+                    @for (rp of rpp; track rp ) {
+                        <ion-select-option [value]="rp">{{ rp }} résultats par page</ion-select-option>
+                    }
+                </ion-select>
+            </div>
+        }
+    </div>
+}
+
+
+

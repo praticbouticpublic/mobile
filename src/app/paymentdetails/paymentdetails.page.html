@@ -1,0 +1,59 @@
+<ion-header class="whitebackg">
+  <ion-toolbar class="whitebackg">
+    <br>
+    <ion-img id="mainlogo" src="assets/img/logo-pratic-boutic.png"></ion-img>
+    <br>
+    <ion-img src="assets/img/timeline-etape-5.png" alt=""></ion-img>
+    <br>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="">
+    @if (!loaded)
+    {
+        <div class="centerflex">
+            <ion-spinner name="crescent"></ion-spinner>
+        </div>
+    }
+  <div [formGroup]="paymentElementForm">
+    <ion-img src="assets/img/illustration_8.png" alt="" class="petitmargecadre"></ion-img>
+    <ion-item class="txtcenter txtpink">
+      <ion-row class="ion-justify-content-center">
+        <ion-col>
+          <ion-label><h1><b>Informations de paiement</b></h1></ion-label>
+          <ion-label><p>Le montant des frais mensuel d'abonnementd'élève à 3.3% de commission de votre chiffre d'affaires.<br>
+            <b>Sans engagement</b> - Vous pouvez résilier votre abonnement à tous moment.</p></ion-label>
+        </ion-col>
+      </ion-row>
+    </ion-item>
+    <ngx-stripe-card class="stripe" [options]="cardOptions" [elementsOptions]="elementsOptions"></ngx-stripe-card>
+    <br>
+    <ion-item>
+      <ion-input type="text" id="name" class="paramfieldc enlarged" value="" placeholder="Nom complet" autocomplete="on"></ion-input>
+    </ion-item>
+    <br />
+    <ion-item>
+      <ion-text for="cgv">En cochant cette case vous acceptez <a class="urlstyle" (click)="gotocgv(type)">les conditions générales de ventes</a></ion-text>
+      <ion-checkbox formControlName="cgv" slot="start" class="paramfieldc center" id="cgv" name="cgv" value=""></ion-checkbox>
+    </ion-item>
+      @if (isSubmitted && !cgv ) {
+          <span class="error ion-padding">
+              Vous devez accepter les conditions générales de vente pour continuer
+          </span>
+
+      }
+    <ion-row>
+      <ion-col>
+        <ion-button shape="round" type="button" id="validid" class="actionbutton" expand="block" (click)="pay()" [disabled]="!cgv"><ion-icon name="send-outline"></ion-icon>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C'EST PARTI ! </ion-button>
+      </ion-col>
+    </ion-row>
+    <br>
+    <br>
+    <br>
+    <!--<ion-fab vertical="bottom" horizontal="start" slot="fixed">
+      <ion-fab-button class="otherbutton" id="cancelid" (click)="onCancel()">
+        <ion-icon name="close-outline"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>-->
+  </div>
+</ion-content>

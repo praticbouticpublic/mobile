@@ -1,0 +1,40 @@
+<ion-header [routerLink]="['/admin/login']">
+    <ion-img id="mainlogo" src="assets/img/logo-pratic-boutic.png"></ion-img>
+</ion-header>
+<ion-content>
+    <div class="tile">
+        <div class="example-full-width">
+            <br>
+            <form [formGroup]="form" class="example-form">
+                <ion-item>
+                    <ion-select formControlName="aliasboutic" value="" aria-label="Boutic" interface="modal" placeholder="Choississez votre boutic" fill="outline" class="bordernice" (ionChange)="selected($event)" [hidden]="options.length < 0">
+                        @for (option of opts; track option.id) {
+                            <ion-select-option [value]="option.alias">{{ option.nom }}</ion-select-option>
+                        }
+                    </ion-select>
+                </ion-item>
+                <div class="container centered">
+                    <br>
+                    <ion-label>OU</ion-label>
+                    <ion-label><br></ion-label>
+                    <ion-label>scanner votre QRcode Praticboutic</ion-label>
+                    <br>
+                    <ion-fab-button (click)="scan()" [disabled]="!isSupported">
+                        <ion-icon name="scan"></ion-icon>
+                    </ion-fab-button>
+                </div>
+          </form>
+          <br>
+          <ion-button shape="round" class="nice" [routerLink]="['/admin/login']" routerDirection="root">JE SUIS COMMERÇANT</ion-button>
+        @if (!prod){
+            <p> ID Device {{ token !== '' ? token : "plateforme non supportée" }}</p>
+        }
+        </div>
+    </div>
+</ion-content>
+@if (getShowBarre())
+{
+    <div id="barre">Ce site utilise des cookies<div id="fermer" (mousedown)="setShowBarre(true)"></div></div>
+}
+
+

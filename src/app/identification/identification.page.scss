@@ -1,0 +1,105 @@
+
+.txtcenter
+{
+    text-align: center;
+}
+
+.txtunderline
+{
+    text-decoration: underline;
+}
+
+.actionbutton
+{
+  --font-weight: bold;
+  --background:#009CDB;
+}
+
+.action2button
+{
+  --font-weight: bold;
+  --background:#777;
+}
+
+.otherbutton
+{
+    --background: white;
+    --border-color: #e2007a;
+    --color: #e2007a;
+}
+
+
+.whitebackg
+{
+  --background: white;
+  --color: #009CDB;
+  --font-weight: bold;
+}
+
+.greybackg
+{
+  --background: grey;
+  --color: white;
+  --font-weight: bold;
+}
+
+.txtwhite
+{
+  --color: white;
+  color:white;
+}
+
+.bld
+{
+  --font-weight: bold;
+  font-weight: bold;
+}
+
+.txtgrey
+{
+  --color: grey;
+}
+
+
+.logoheader
+{
+    width: 33%;
+    height: 33%;
+    margin-left: 33%;
+    margin-right: 33%;
+}
+
+.petitmargecadre
+{
+    margin: 5%;
+}
+
+.item-input.sc-ion-label-md-h, .item-input .sc-ion-label-md-h
+{
+  flex:auto;
+}
+
+
+.ppanel
+{
+  --background: linear-gradient(#d4145a,#e6007e);
+}
+
+.centered
+{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow-y: scroll;
+  height: 66vmax;
+  padding-top: 5vmax;
+  padding-bottom: 5vmax;
+  padding-left: 5vmin;
+  padding-right: 5vmin;
+  height: 80vmax;
+}
+
+.rounded
+{
+  --border-radius: 25px;
+}

@@ -1,0 +1,63 @@
+<ion-header class="greybackg">
+  <ion-toolbar class="greybackg">
+      @if (type === 'init')
+      {
+          <ion-img class="petitmargecadre" src="assets/img/fil_Page_5.png" alt=""></ion-img>
+      }
+    <ion-img class="logoheader greybackg" src="assets/img/LOGO_PRATIC_BOUTIC.png" alt=""></ion-img>
+    <br>
+    <ion-title class="greybackg txtcenter txtunderline">CHOIX DE L'ABONNEMENT</ion-title>
+    <br>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="greybackg">
+    @if (!loaded)
+    {
+        <div class="centerflex">
+            <ion-spinner class="bigspinner" name="crescent"></ion-spinner>
+        </div>
+    }
+    @else
+    {
+        <form [formGroup]="subchoiceForm" id="subscriptionchoice-form">
+            <br>
+            <ion-item class="greybackg">
+                <ion-img class="petitemargeblanche" src="assets/img/commission_unselected.png" alt="" id="abocom" name="abocom" (click)="onSelect('ABOCONSO')"></ion-img>
+            </ion-item>
+            <ion-item class="greybackg">
+                <ion-img class="petitemargeblanche" src="assets/img/engagement_unselected.png" alt="" id="abofixe" name="abofixe" (click)="onSelect('ABOFIXE')"></ion-img>
+            </ion-item>
+            @if (isSubmitted && abonnement === '')
+            {
+                <span class="error ion-padding">
+                    Vous devez choisir un abonement pour continuer
+                </span>
+            }
+            <br>
+            <ion-item>
+                <ion-text for="cgv">En cochant cette case vous acceptez <a class="urlstyle" (click)="gotocgv(type)">les conditions générales de ventes</a></ion-text>
+                <ion-checkbox formControlName="cgv" slot="start" class="paramfieldc center" id="cgv" name="cgv" value=""></ion-checkbox>
+            </ion-item>
+            @if (isSubmitted && !cgv)
+            {
+                <span class="error ion-padding">
+                  Vous devez accepter les conditions générales de vente pour continuer
+                </span>
+            }
+        </form>
+    }
+  <br>
+  <br>
+  <br>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button class="actionbutton" id="validid" (click)="onSubmit()">
+      <ion-icon name="send-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  <!--<ion-fab vertical="bottom" horizontal="start" slot="fixed">
+    <ion-fab-button class="otherbutton" id="cancelid" (click)="onCancel()">
+      <ion-icon name="close-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>-->
+</ion-content>
